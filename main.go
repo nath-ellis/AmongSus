@@ -1,8 +1,8 @@
 package main
 
 import (
-	"log"
 	_ "image/png"
+	"log"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/nath-ellis/AmongSus/player"
@@ -17,6 +17,7 @@ func init() {
 }
 
 func (g *Game) Update() error {
+	player.Controls()
 
 	return nil
 }
