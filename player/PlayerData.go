@@ -8,14 +8,18 @@ import (
 
 type PlayerData struct {
 	Obj          *resolv.Object
+	Colour       string
 	WalkingStage int
+	WalkCool     int
 }
 
 var Player PlayerData
 
 func Init() {
 	Player.Obj = resolv.NewObject(50, 50, 102, 102, "player")
+	Player.Colour = "lime"
 	Player.WalkingStage = 0
+	Player.WalkCool = 0
 
 	space.Space.Add(Player.Obj)
 
@@ -25,8 +29,28 @@ func Init() {
 	limeWalking3, _, _ := ebitenutil.NewImageFromFile("res/Lime/walking-3.png")
 	limeWalking4, _, _ := ebitenutil.NewImageFromFile("res/Lime/walking-4.png")
 
-	LimeWalking = append(LimeWalking, limeWalking1)
-	LimeWalking = append(LimeWalking, limeWalking2)
-	LimeWalking = append(LimeWalking, limeWalking3)
-	LimeWalking = append(LimeWalking, limeWalking4)
+	limeWalking = append(limeWalking, limeWalking1)
+	limeWalking = append(limeWalking, limeWalking2)
+	limeWalking = append(limeWalking, limeWalking3)
+	limeWalking = append(limeWalking, limeWalking4)
+
+	cyanWalking1, _, _ := ebitenutil.NewImageFromFile("res/Cyan/walking-1.png")
+	cyanWalking2, _, _ := ebitenutil.NewImageFromFile("res/Cyan/walking-2.png")
+	cyanWalking3, _, _ := ebitenutil.NewImageFromFile("res/Cyan/walking-3.png")
+	cyanWalking4, _, _ := ebitenutil.NewImageFromFile("res/Cyan/walking-4.png")
+
+	cyanWalking = append(cyanWalking, cyanWalking1)
+	cyanWalking = append(cyanWalking, cyanWalking2)
+	cyanWalking = append(cyanWalking, cyanWalking3)
+	cyanWalking = append(cyanWalking, cyanWalking4)
+
+	yellowWalking1, _, _ := ebitenutil.NewImageFromFile("res/Yellow/walking-1.png")
+	yellowWalking2, _, _ := ebitenutil.NewImageFromFile("res/Yellow/walking-2.png")
+	yellowWalking3, _, _ := ebitenutil.NewImageFromFile("res/Yellow/walking-3.png")
+	yellowWalking4, _, _ := ebitenutil.NewImageFromFile("res/Yellow/walking-4.png")
+
+	yellowWalking = append(yellowWalking, yellowWalking1)
+	yellowWalking = append(yellowWalking, yellowWalking2)
+	yellowWalking = append(yellowWalking, yellowWalking3)
+	yellowWalking = append(yellowWalking, yellowWalking4)
 }
