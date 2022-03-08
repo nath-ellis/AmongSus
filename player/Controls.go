@@ -28,13 +28,4 @@ func Controls() {
 	}
 
 	Player.Obj.Update()
-
-	if ebiten.IsKeyPressed(ebiten.KeyW) ||
-		ebiten.IsKeyPressed(ebiten.KeyS) ||
-		ebiten.IsKeyPressed(ebiten.KeyA) ||
-		ebiten.IsKeyPressed(ebiten.KeyD) {
-		Player.Moving = true
-	} else {
-		Player.Moving = false
-	}
 }

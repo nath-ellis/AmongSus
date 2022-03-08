@@ -2,16 +2,12 @@ package player
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
 var (
-	limeWalking      []*ebiten.Image
-	cyanWalking      []*ebiten.Image
-	yellowWalking    []*ebiten.Image
-	limeIdle, _, _   = ebitenutil.NewImageFromFile("res/Lime/idle.png")
-	cyanIdle, _, _   = ebitenutil.NewImageFromFile("res/Cyan/idle.png")
-	yellowIdle, _, _ = ebitenutil.NewImageFromFile("res/Yellow/idle.png")
+	limeWalking   []*ebiten.Image
+	cyanWalking   []*ebiten.Image
+	yellowWalking []*ebiten.Image
 )
 
 func Draw(screen *ebiten.Image) {
@@ -26,23 +22,11 @@ func Draw(screen *ebiten.Image) {
 
 	switch Player.Colour {
 	case "lime":
-		if Player.Moving {
-			screen.DrawImage(limeWalking[Player.WalkingStage], op)
-		} else {
-			screen.DrawImage(limeIdle, op)
-		}
+		screen.DrawImage(limeWalking[Player.WalkingStage], op)
 	case "cyan":
-		if Player.Moving {
-			screen.DrawImage(cyanWalking[Player.WalkingStage], op)
-		} else {
-			screen.DrawImage(cyanIdle, op)
-		}
+		screen.DrawImage(cyanWalking[Player.WalkingStage], op)
 	case "yellow":
-		if Player.Moving {
-			screen.DrawImage(yellowWalking[Player.WalkingStage], op)
-		} else {
-			screen.DrawImage(yellowIdle, op)
-		}
+		screen.DrawImage(yellowWalking[Player.WalkingStage], op)
 	}
 
 	if Player.WalkCool < 0 {

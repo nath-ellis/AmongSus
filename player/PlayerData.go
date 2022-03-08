@@ -10,7 +10,6 @@ type PlayerData struct {
 	Obj          *resolv.Object
 	Colour       string
 	Speed        float64
-	Moving       bool
 	WalkingStage int
 	WalkCool     int
 }
@@ -21,7 +20,6 @@ func Init() {
 	Player.Obj = resolv.NewObject(50, 50, 102, 102, "player")
 	Player.Colour = "lime"
 	Player.Speed = 5
-	Player.Moving = false
 	Player.WalkingStage = 0
 	Player.WalkCool = 0
 
