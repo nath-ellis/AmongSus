@@ -21,6 +21,7 @@ func init() {
 
 func (g *Game) Update() error {
 	player.Controls()
+	world.Update()
 
 	return nil
 }
