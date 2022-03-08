@@ -9,7 +9,9 @@ import (
 type PlayerData struct {
 	Obj          *resolv.Object
 	Colour       string
-	Speed        float64
+	XSpeed       float64
+	YSpeed       float64
+	YVel         float64
 	WalkingStage int
 	WalkCool     int
 }
@@ -19,7 +21,9 @@ var Player PlayerData
 func Init() {
 	Player.Obj = resolv.NewObject(50, 50, 102, 102, "player")
 	Player.Colour = "lime"
-	Player.Speed = 5
+	Player.XSpeed = 5
+	Player.YSpeed = 5
+	Player.YVel = 0.5
 	Player.WalkingStage = 0
 	Player.WalkCool = 0
 
