@@ -5,16 +5,18 @@ import (
 )
 
 func Controls() {
-	if c := Player.Obj.Check(-Player.XSpeed, 0); c == nil {
-		if ebiten.IsKeyPressed(ebiten.KeyA) {
-			Player.Obj.X -= Player.XSpeed
-		}
-	}
+	xSpeed := Player.XSpeed
 
-	if c := Player.Obj.Check(Player.XSpeed, 0); c == nil {
-		if ebiten.IsKeyPressed(ebiten.KeyD) {
-			Player.Obj.X += Player.XSpeed
+	if ebiten.IsKeyPressed(ebiten.KeyA) {
+		if c := Player.Obj.Check(-xSpeed, 0, "object"); c != nil {
+			xSpeed = c.ContactWithCell(c.Cells[0]).X()
 		}
+		Player.Obj.X -= xSpeed
+	} else if ebiten.IsKeyPressed(ebiten.KeyD) {
+		if c := Player.Obj.Check(xSpeed, 0, "object"); c != nil {
+			xSpeed = c.ContactWithCell(c.Cells[0]).X()
+		}
+		Player.Obj.X += xSpeed
 	}
 
 	Player.YSpeed += Player.YVel
