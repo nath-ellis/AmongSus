@@ -47,7 +47,7 @@ func Update() {
 		case "spikes":
 			o.Obj.X -= Speed
 
-			if o.Obj.X <= -32 { // removes it
+			if o.Obj.X <= -64 { // removes it
 				tmp := []Object{}
 
 				for _, O := range Objects {
