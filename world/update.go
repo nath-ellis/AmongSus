@@ -1,6 +1,10 @@
 package world
 
-import "math/rand"
+import (
+	"math/rand"
+
+	"github.com/nath-ellis/AmongSus/space"
+)
 
 var objTicker int = 0
 
@@ -41,6 +45,8 @@ func Update() {
 					tmp = append(tmp, O)
 				}
 
+				space.Space.Remove(o.Obj)
+
 				Objects = []Object{}
 				Objects = tmp
 			}
@@ -56,6 +62,8 @@ func Update() {
 					}
 					tmp = append(tmp, O)
 				}
+
+				space.Space.Remove(o.Obj)
 
 				Objects = []Object{}
 				Objects = tmp
