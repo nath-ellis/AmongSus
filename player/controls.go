@@ -1,6 +1,8 @@
 package player
 
-import "github.com/hajimehoshi/ebiten/v2"
+import (
+	"github.com/hajimehoshi/ebiten/v2"
+)
 
 func Controls() {
 	if c := Player.Obj.Check(-Player.XSpeed, 0); c == nil {
@@ -15,12 +17,31 @@ func Controls() {
 		}
 	}
 
-	if c := Player.Obj.Check(0, Player.YSpeed); c == nil { // gravity
-		Player.Obj.Y += Player.YSpeed
-		Player.YSpeed += Player.YVel
-	} else {
-		Player.YSpeed = 5
+	Player.YSpeed += Player.YVel
+
+	if !Player.Falling {
+		if ebiten.IsKeyPressed(ebiten.KeySpace) { // jumping
+			Player.YSpeed = -Player.JumpSpeed
+			Player.Falling = true
+		}
 	}
+
+	ySpeed := Player.YSpeed
+
+	Player.Falling = true
+
+	if c := Player.Obj.Check(0, ySpeed, "object"); c != nil {
+		if objs := c.ObjectsByTags("object"); len(objs) > 0 {
+			ySpeed = c.ContactWithObject(objs[0]).Y()
+			Player.YSpeed = 0
+
+			if objs[0].Y > Player.Obj.Y {
+				Player.Falling = false
+			}
+		}
+	}
+
+	Player.Obj.Y += ySpeed
 
 	Player.Obj.Update()
 }

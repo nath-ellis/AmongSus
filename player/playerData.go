@@ -12,6 +12,8 @@ type PlayerData struct {
 	XSpeed       float64
 	YSpeed       float64
 	YVel         float64
+	JumpSpeed    float64
+	Falling      bool
 	WalkingStage int
 	WalkCool     int
 }
@@ -22,8 +24,10 @@ func Init() {
 	Player.Obj = resolv.NewObject(50, 50, 102, 102, "player")
 	Player.Colour = "lime"
 	Player.XSpeed = 5
-	Player.YSpeed = 5
-	Player.YVel = 0.5
+	Player.YSpeed = 2.0
+	Player.YVel = 1.0
+	Player.JumpSpeed = 20.0
+	Player.Falling = false
 	Player.WalkingStage = 0
 	Player.WalkCool = 0
 
