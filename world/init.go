@@ -14,4 +14,6 @@ func Init() {
 	NewObject(992, 476, "platform")
 	NewObject(1116, 476, "platform")
 	NewObject(1240, 476, "platform")
+
+	NewObject(1240, 352, "column")
 }

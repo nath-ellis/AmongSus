@@ -7,6 +7,7 @@ import (
 
 var (
 	platform, _, _ = ebitenutil.NewImageFromFile("res/terrain/platform.png")
+	column, _, _   = ebitenutil.NewImageFromFile("res/terrain/column-1.png")
 )
 
 func Draw(screen *ebiten.Image) {
@@ -17,6 +18,8 @@ func Draw(screen *ebiten.Image) {
 		switch o.Type {
 		case "platform":
 			screen.DrawImage(platform, op)
+		case "column":
+			screen.DrawImage(column, op)
 		}
 	}
 }

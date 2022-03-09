@@ -2,9 +2,60 @@ package player
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/nath-ellis/AmongSus/world"
 )
 
 func Controls() {
+	if c := Player.Obj.Check(1, 1, "object"); c != nil {
+		oX, oY := c.Objects[0].X, c.Objects[0].Y
+
+		for _, o := range world.Objects {
+			if o.Type == "platform" {
+				continue
+			}
+
+			if o.Obj.X == oX && o.Obj.Y == oY {
+				Player.State = "gameOver"
+			}
+		}
+	} else if c := Player.Obj.Check(1, -1, "object"); c != nil {
+		oX, oY := c.Objects[0].X, c.Objects[0].Y
+
+		for _, o := range world.Objects {
+			if o.Type == "platform" {
+				continue
+			}
+
+			if o.Obj.X == oX && o.Obj.Y == oY {
+				Player.State = "gameOver"
+			}
+		}
+	} else if c := Player.Obj.Check(-1, 1, "object"); c != nil {
+		oX, oY := c.Objects[0].X, c.Objects[0].Y
+
+		for _, o := range world.Objects {
+			if o.Type == "platform" {
+				continue
+			}
+
+			if o.Obj.X == oX && o.Obj.Y == oY {
+				Player.State = "gameOver"
+			}
+		}
+	} else if c := Player.Obj.Check(-1, -1, "object"); c != nil {
+		oX, oY := c.Objects[0].X, c.Objects[0].Y
+
+		for _, o := range world.Objects {
+			if o.Type == "platform" {
+				continue
+			}
+
+			if o.Obj.X == oX && o.Obj.Y == oY {
+				Player.State = "gameOver"
+			}
+		}
+	}
+
 	xSpeed := Player.XSpeed
 
 	if ebiten.IsKeyPressed(ebiten.KeyA) {

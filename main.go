@@ -20,15 +20,19 @@ func init() {
 }
 
 func (g *Game) Update() error {
-	player.Controls()
-	world.Update()
+	if player.Player.State == "game" {
+		player.Controls()
+		world.Update()
+	}
 
 	return nil
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	player.Draw(screen)
-	world.Draw(screen)
+	if player.Player.State == "game" {
+		player.Draw(screen)
+		world.Draw(screen)
+	}
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {

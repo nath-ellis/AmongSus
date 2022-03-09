@@ -16,6 +16,7 @@ type PlayerData struct {
 	Falling      bool
 	WalkingStage int
 	WalkCool     int
+	State        string
 }
 
 var Player PlayerData
@@ -30,6 +31,7 @@ func Init() {
 	Player.Falling = false
 	Player.WalkingStage = 0
 	Player.WalkCool = 0
+	Player.State = "game"
 
 	space.Space.Add(Player.Obj)
 
