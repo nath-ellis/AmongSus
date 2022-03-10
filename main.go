@@ -20,18 +20,51 @@ func init() {
 }
 
 func (g *Game) Update() error {
-	if player.Player.State == "game" {
+	if player.Player.State == "menu" {
+		if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
+			player.Player.State = "game"
+		}
+	} else if player.Player.State == "game" {
 		player.Controls()
 		world.Update()
+	} else if player.Player.State == "gameOver" {
+		if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
+			player.Player.Obj.X = 50
+			player.Player.Obj.Y = 50
+
+			for _, o := range world.Objects {
+				if o.Type != "platform" {
+					tmp := []world.Object{}
+
+					for _, O := range world.Objects {
+						if o.Obj.X == O.Obj.X && o.Type == O.Type {
+							continue
+						}
+						tmp = append(tmp, O)
+					}
+
+					space.Space.Remove(o.Obj)
+
+					world.Objects = []world.Object{}
+					world.Objects = tmp
+				}
+			}
+
+			player.Player.State = "game"
+		}
 	}
 
 	return nil
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	if player.Player.State == "game" {
+	if player.Player.State == "menu" {
+		world.DrawMenu(screen)
+	} else if player.Player.State == "game" {
 		world.Draw(screen)
 		player.Draw(screen)
+	} else if player.Player.State == "gameOver" {
+		world.DrawGameOver(screen)
 	}
 }
 

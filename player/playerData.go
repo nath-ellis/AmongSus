@@ -31,7 +31,7 @@ func Init() {
 	Player.Falling = false
 	Player.WalkingStage = 0
 	Player.WalkCool = 0
-	Player.State = "game"
+	Player.State = "menu"
 
 	space.Space.Add(Player.Obj)
 
