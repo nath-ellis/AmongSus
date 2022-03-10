@@ -13,9 +13,18 @@ var (
 )
 
 func DrawMenu(screen *ebiten.Image) {
-	screen.DrawImage(menubg, nil)
-
 	op := &ebiten.DrawImageOptions{}
+
+	op.GeoM.Scale(0.5, 0.5)
+	screen.DrawImage(menubg, op)
+	op.GeoM.Translate(375, 0)
+	screen.DrawImage(menubg, op)
+	op.GeoM.Translate(-375, 300)
+	screen.DrawImage(menubg, op)
+	op.GeoM.Translate(375, 0)
+	screen.DrawImage(menubg, op)
+
+	op.GeoM.Reset()
 	op.GeoM.Scale(0.5, 0.5)
 	op.GeoM.Translate(340, 200)
 
@@ -28,9 +37,18 @@ func DrawMenu(screen *ebiten.Image) {
 }
 
 func DrawGameOver(screen *ebiten.Image) {
-	screen.DrawImage(menubg, nil)
-
 	op := &ebiten.DrawImageOptions{}
+
+	op.GeoM.Scale(0.5, 0.5)
+	screen.DrawImage(menubg, op)
+	op.GeoM.Translate(375, 0)
+	screen.DrawImage(menubg, op)
+	op.GeoM.Translate(-375, 300)
+	screen.DrawImage(menubg, op)
+	op.GeoM.Translate(375, 0)
+	screen.DrawImage(menubg, op)
+
+	op.GeoM.Reset()
 	op.GeoM.Scale(0.5, 0.5)
 	op.GeoM.Translate(350, 200)
 
