@@ -24,6 +24,7 @@ func (g *Game) Update() error {
 		if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
 			player.Player.State = "game"
 		}
+		player.ColourSelectorCtl()
 	} else if player.Player.State == "game" {
 		player.Controls()
 		world.Update()
@@ -60,6 +61,7 @@ func (g *Game) Update() error {
 func (g *Game) Draw(screen *ebiten.Image) {
 	if player.Player.State == "menu" {
 		world.DrawMenu(screen)
+		player.DrawColourSelector(screen)
 	} else if player.Player.State == "game" {
 		world.Draw(screen)
 		player.Draw(screen)
