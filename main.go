@@ -30,8 +30,8 @@ func (g *Game) Update() error {
 
 func (g *Game) Draw(screen *ebiten.Image) {
 	if player.Player.State == "game" {
-		player.Draw(screen)
 		world.Draw(screen)
+		player.Draw(screen)
 	}
 }
 

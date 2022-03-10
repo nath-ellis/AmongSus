@@ -6,12 +6,15 @@ import (
 )
 
 var (
+	bg, _, _       = ebitenutil.NewImageFromFile("res/bg.png")
 	platform, _, _ = ebitenutil.NewImageFromFile("res/terrain/platform.png")
 	column, _, _   = ebitenutil.NewImageFromFile("res/terrain/column-1.png")
-	spikes, _, _ = ebitenutil.NewImageFromFile("res/terrain/spikes.png")
+	spikes, _, _   = ebitenutil.NewImageFromFile("res/terrain/spikes.png")
 )
 
 func Draw(screen *ebiten.Image) {
+	screen.DrawImage(bg, nil)
+
 	for _, o := range Objects {
 		op := &ebiten.DrawImageOptions{}
 		op.GeoM.Translate(o.Obj.X, o.Obj.Y)
