@@ -1,5 +1,10 @@
 package world
 
+import (
+	"github.com/nath-ellis/AmongSus/space"
+	"github.com/solarlune/resolv"
+)
+
 var Speed float64 = 2
 
 func Init() {
@@ -14,4 +19,6 @@ func Init() {
 	NewObject(992, 476, "platform")
 	NewObject(1116, 476, "platform")
 	NewObject(1240, 476, "platform")
+
+	space.Space.Add(resolv.NewObject(0, 476, 1200, 124, "object"))
 }
