@@ -27,7 +27,7 @@ func Init() {
 	Player.XSpeed = 5
 	Player.YSpeed = 2.0
 	Player.YVel = 1.0
-	Player.JumpSpeed = 21.5
+	Player.JumpSpeed = 21.0
 	Player.Falling = false
 	Player.WalkingStage = 0
 	Player.WalkCool = 0
