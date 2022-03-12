@@ -31,7 +31,7 @@ func (g *Game) Update() error {
 	} else if player.Player.State == "gameOver" {
 		if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
 			player.Player.Obj.X = 50
-			player.Player.Obj.Y = 50
+			player.Player.Obj.Y = 100
 
 			for _, o := range world.Objects {
 				if o.Type != "platform" {

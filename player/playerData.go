@@ -22,7 +22,7 @@ type PlayerData struct {
 var Player PlayerData
 
 func Init() {
-	Player.Obj = resolv.NewObject(50, 50, 90, 95, "player")
+	Player.Obj = resolv.NewObject(50, -100, 90, 95, "player")
 	Player.Colour = "lime"
 	Player.XSpeed = 5
 	Player.YSpeed = 2.0
