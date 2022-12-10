@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/nath-ellis/AmongSus/player"
 	"github.com/nath-ellis/AmongSus/space"
 	"github.com/nath-ellis/AmongSus/world"
@@ -21,15 +22,24 @@ func init() {
 
 func (g *Game) Update() error {
 	if player.Player.State == "menu" {
-		if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
-			player.Player.State = "game"
+		if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) { // FINISH
+			posX, posY := ebiten.CursorPosition()
+
+			if (posX > 5 && posX < 37) && (posY > 105 && posY < 137) {
+				player.ChangeColour()
+			} else if (posX > 45 && posX < 77) && (posY > 105 && posY < 137) {
+				player.ChangeColour()
+			} else {
+				player.Player.State = "game"
+			}
+
 		}
 		player.ColourSelectorCtl()
 	} else if player.Player.State == "game" {
 		player.Controls()
 		world.Update()
 	} else if player.Player.State == "gameOver" {
-		if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
+		if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
 			player.Player.Obj.X = 50
 			player.Player.Obj.Y = -100
 
