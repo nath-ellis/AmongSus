@@ -32,7 +32,6 @@ func (g *Game) Update() error {
 			} else {
 				player.Player.State = "game"
 			}
-
 		}
 		player.ColourSelectorCtl()
 	} else if player.Player.State == "game" {
@@ -40,29 +39,38 @@ func (g *Game) Update() error {
 		world.Update()
 	} else if player.Player.State == "gameOver" {
 		if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
-			player.Player.Obj.X = 50
-			player.Player.Obj.Y = -100
+			posX, posY := ebiten.CursorPosition()
 
-			for _, o := range world.Objects {
-				if o.Type != "platform" {
-					tmp := []world.Object{}
+			if (posX > 5 && posX < 37) && (posY > 105 && posY < 137) {
+				player.ChangeColour()
+			} else if (posX > 45 && posX < 77) && (posY > 105 && posY < 137) {
+				player.ChangeColour()
+			} else {
+				player.Player.Obj.X = 50
+				player.Player.Obj.Y = -100
 
-					for _, O := range world.Objects {
-						if o.Obj.X == O.Obj.X && o.Type == O.Type {
-							continue
+				for _, o := range world.Objects {
+					if o.Type != "platform" {
+						tmp := []world.Object{}
+
+						for _, O := range world.Objects {
+							if o.Obj.X == O.Obj.X && o.Type == O.Type {
+								continue
+							}
+							tmp = append(tmp, O)
 						}
-						tmp = append(tmp, O)
+
+						space.Space.Remove(o.Obj)
+
+						world.Objects = []world.Object{}
+						world.Objects = tmp
 					}
-
-					space.Space.Remove(o.Obj)
-
-					world.Objects = []world.Object{}
-					world.Objects = tmp
 				}
-			}
 
-			player.Player.State = "game"
+				player.Player.State = "game"
+			}
 		}
+		player.ColourSelectorCtl()
 	}
 
 	return nil
@@ -77,6 +85,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		player.Draw(screen)
 	} else if player.Player.State == "gameOver" {
 		world.DrawGameOver(screen)
+		player.DrawColourSelector(screen)
 	}
 }
 
