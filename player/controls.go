@@ -65,7 +65,6 @@ func checkObjects(objectX float64, objectY float64, objectW float64) {
 			continue
 		}
 
-		// FINISH - Making the objects better
 		if o.Type == "column" || o.Type == "turretbase" {
 			if Player.Obj.X < objectX || Player.Obj.Y > objectY { // Left and above
 				Player.Obj.X -= world.Speed // Move player with object
