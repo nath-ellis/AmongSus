@@ -7,13 +7,13 @@ import (
 
 func Controls() {
 	if c := Player.Obj.Check(Player.XSpeed, Player.YSpeed, "object"); c != nil {
-		checkObjects(c.Objects[0].X, c.Objects[0].Y)
+		checkObjects(c.Objects[0].X, c.Objects[0].Y, c.Objects[0].W)
 	} else if c := Player.Obj.Check(Player.XSpeed, -Player.YSpeed, "object"); c != nil {
-		checkObjects(c.Objects[0].X, c.Objects[0].Y)
+		checkObjects(c.Objects[0].X, c.Objects[0].Y, c.Objects[0].W)
 	} else if c := Player.Obj.Check(-Player.XSpeed, Player.YSpeed, "object"); c != nil {
-		checkObjects(c.Objects[0].X, c.Objects[0].Y)
+		checkObjects(c.Objects[0].X, c.Objects[0].Y, c.Objects[0].W)
 	} else if c := Player.Obj.Check(-Player.XSpeed, -Player.YSpeed, "object"); c != nil {
-		checkObjects(c.Objects[0].X, c.Objects[0].Y)
+		checkObjects(c.Objects[0].X, c.Objects[0].Y, c.Objects[0].W)
 	}
 
 	xSpeed := Player.XSpeed
@@ -59,10 +59,29 @@ func Controls() {
 	Player.Obj.Update()
 }
 
-func checkObjects(objectX float64, objectY float64) {
+func checkObjects(objectX float64, objectY float64, objectW float64) {
 	for _, o := range world.Objects {
 		if o.Type == "platform" {
 			continue
+		}
+
+		// FINISH - Making the objects better
+		if o.Type == "column" || o.Type == "turretbase" {
+			if Player.Obj.X < objectX || Player.Obj.Y > objectY { // Left and above
+				Player.Obj.X -= world.Speed // Move player with object
+				Player.Obj.Update()
+			}
+			continue
+		}
+
+		if o.Type == "spikes" {
+			if Player.Obj.X < objectX { // Left
+				Player.Obj.X -= world.Speed // Move player with object
+				Player.Obj.Update()
+				continue
+			} else if Player.Obj.X > (objectX + objectW) { // Right
+				continue
+			}
 		}
 
 		if o.Obj.X == objectX && o.Obj.Y == objectY {
