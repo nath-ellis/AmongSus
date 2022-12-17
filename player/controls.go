@@ -57,6 +57,10 @@ func Controls() {
 	Player.Obj.Y += ySpeed
 
 	Player.Obj.Update()
+
+	if Player.Obj.X < -Player.Obj.W {
+		Player.State = "gameOver"
+	}
 }
 
 func checkObjects(objectX float64, objectY float64, objectW float64) {
