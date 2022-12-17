@@ -22,7 +22,7 @@ func init() {
 
 func (g *Game) Update() error {
 	if player.Player.State == "menu" {
-		if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) { // FINISH
+		if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
 			posX, posY := ebiten.CursorPosition()
 
 			if (posX > 5 && posX < 37) && (posY > 105 && posY < 137) {
