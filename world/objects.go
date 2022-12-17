@@ -20,7 +20,7 @@ func NewObject(x float64, y float64, Type string) {
 		Objects = append(Objects, Object{resolv.NewObject(x, y, 31, 124, "object"), Type})
 
 		for _, o := range Objects {
-			if o.Type != "platform" {
+			if o.Obj.X == x && o.Obj.Y == y {
 				space.Space.Add(o.Obj)
 			}
 		}
@@ -28,7 +28,7 @@ func NewObject(x float64, y float64, Type string) {
 		Objects = append(Objects, Object{resolv.NewObject(x, y, 124, 62, "object"), Type})
 
 		for _, o := range Objects {
-			if o.Type != "platform" {
+			if o.Obj.X == x && o.Obj.Y == y {
 				space.Space.Add(o.Obj)
 			}
 		}
@@ -36,7 +36,7 @@ func NewObject(x float64, y float64, Type string) {
 		Objects = append(Objects, Object{resolv.NewObject(x, y, 124, 62, "object"), Type})
 
 		for _, o := range Objects {
-			if o.Type != "platform" {
+			if o.Obj.X == x && o.Obj.Y == y {
 				space.Space.Add(o.Obj)
 			}
 		}
