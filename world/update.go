@@ -6,7 +6,7 @@ import (
 	"github.com/nath-ellis/AmongSus/space"
 )
 
-var objTicker int = 0
+var objTicker             int = 0
 
 func Update() {
 	if objTicker <= 0 {
@@ -38,58 +38,38 @@ func Update() {
 			o.Obj.X -= Speed
 
 			if o.Obj.X <= -32 { // removes it
-				tmp := []Object{}
-
-				for _, O := range Objects {
-					if o.Obj.X == O.Obj.X && o.Type == O.Type {
-						continue
-					}
-					tmp = append(tmp, O)
-				}
-
-				space.Space.Remove(o.Obj)
-
-				Objects = []Object{}
-				Objects = tmp
+				removeObject(o)
 			}
 		case "spikes":
 			o.Obj.X -= Speed
 
 			if o.Obj.X <= -125 { // removes it
-				tmp := []Object{}
-
-				for _, O := range Objects {
-					if o.Obj.X == O.Obj.X && o.Type == O.Type {
-						continue
-					}
-					tmp = append(tmp, O)
-				}
-
-				space.Space.Remove(o.Obj)
-
-				Objects = []Object{}
-				Objects = tmp
+				removeObject(o)
 			}
 		case "turretbase":
 			o.Obj.X -= Speed
 
 			if o.Obj.X <= -250 { // removes it
-				tmp := []Object{}
-
-				for _, O := range Objects {
-					if o.Obj.X == O.Obj.X && o.Type == O.Type {
-						continue
-					}
-					tmp = append(tmp, O)
-				}
-
-				space.Space.Remove(o.Obj)
-
-				Objects = []Object{}
-				Objects = tmp
+				removeObject(o)
 			}
 		}
 
 		o.Obj.Update()
 	}
+}
+
+func removeObject(o Object) {
+	tmp := []Object{}
+
+	for _, O := range Objects {
+		if o.Obj.X == O.Obj.X && o.Type == O.Type {
+			continue
+		}
+		tmp = append(tmp, O)
+	}
+
+	space.Space.Remove(o.Obj)
+
+	Objects = []Object{}
+	Objects = tmp
 }
