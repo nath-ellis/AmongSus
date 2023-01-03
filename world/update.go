@@ -6,11 +6,11 @@ import (
 	"github.com/nath-ellis/AmongSus/space"
 )
 
-var objTicker             int = 0
+var objTicker int = 0
 
 func Update() {
 	if objTicker <= 0 {
-		r := rand.Intn(3) // more types later
+		r := rand.Intn(7)
 
 		switch r {
 		case 0:
@@ -19,6 +19,14 @@ func Update() {
 			NewObject(1240, 414, "spikes")
 		case 2:
 			NewObject(1240, 414, "turretbase")
+		case 3:
+			NewObject(1240, 414, "longplatform")
+		case 4:
+			NewObject(1240, 352, "columnspikes")
+		case 5:
+			NewObject(1240, 414, "hill")
+		case 6:
+			NewObject(1240, 414, "spikehill")
 		}
 
 		objTicker = 300

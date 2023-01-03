@@ -59,6 +59,10 @@ func Controls() {
 
 func checkObjects(objectX float64, objectY float64, objectW float64) {
 	for _, o := range world.Objects {
+		if o.Obj.X < 0 || o.Obj.X > 1200 { // Skip if off screen
+			continue
+		}
+
 		if o.Type == "platform" {
 			continue
 		}
