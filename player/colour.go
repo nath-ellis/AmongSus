@@ -16,21 +16,33 @@ var (
 	rightLight, _, _ = ebitenutil.NewImageFromFile("res/prompts/right_light.png")
 )
 
-func ChangeColour() {
-	if Player.Colour == "lime" {
-		Player.Colour = "cyan"
-	} else if Player.Colour == "cyan" {
-		Player.Colour = "yellow"
-	} else if Player.Colour == "yellow" {
-		Player.Colour = "lime"
+func ChangeColour(key ebiten.Key) {
+	if key == ebiten.KeyRight || key == ebiten.Key(ebiten.MouseButtonRight) {
+		if Player.Colour == "lime" {
+			Player.Colour = "cyan"
+		} else if Player.Colour == "cyan" {
+			Player.Colour = "yellow"
+		} else if Player.Colour == "yellow" {
+			Player.Colour = "lime"
+		}
+	}
+
+	if key == ebiten.KeyLeft || key == ebiten.Key(ebiten.MouseButtonLeft) {
+		if Player.Colour == "lime" {
+			Player.Colour = "yellow"
+		} else if Player.Colour == "cyan" {
+			Player.Colour = "lime"
+		} else if Player.Colour == "yellow" {
+			Player.Colour = "cyan"
+		}
 	}
 }
 
 func ColourSelectorCtl() {
 	if inpututil.IsKeyJustPressed(ebiten.KeyRight) {
-		ChangeColour()
+		ChangeColour(ebiten.KeyRight)
 	} else if inpututil.IsKeyJustPressed(ebiten.KeyLeft) {
-		ChangeColour()
+		ChangeColour(ebiten.KeyLeft)
 	}
 }
 

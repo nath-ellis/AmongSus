@@ -26,9 +26,9 @@ func (g *Game) Update() error {
 			posX, posY := ebiten.CursorPosition()
 
 			if (posX > 5 && posX < 37) && (posY > 105 && posY < 137) {
-				player.ChangeColour()
+				player.ChangeColour(ebiten.Key(ebiten.MouseButtonLeft))
 			} else if (posX > 45 && posX < 77) && (posY > 105 && posY < 137) {
-				player.ChangeColour()
+				player.ChangeColour(ebiten.Key(ebiten.MouseButtonRight))
 			} else {
 				player.Player.State = "game"
 			}
@@ -42,9 +42,9 @@ func (g *Game) Update() error {
 			posX, posY := ebiten.CursorPosition()
 
 			if (posX > 5 && posX < 37) && (posY > 105 && posY < 137) {
-				player.ChangeColour()
+				player.ChangeColour(ebiten.Key(ebiten.MouseButtonLeft))
 			} else if (posX > 45 && posX < 77) && (posY > 105 && posY < 137) {
-				player.ChangeColour()
+				player.ChangeColour(ebiten.Key(ebiten.MouseButtonRight))
 			} else {
 				player.Player.Obj.X = 50
 				player.Player.Obj.Y = -100
