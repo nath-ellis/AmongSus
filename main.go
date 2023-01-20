@@ -3,6 +3,8 @@ package main
 import (
 	_ "image/png"
 	"log"
+	"math/rand"
+	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
@@ -14,6 +16,8 @@ import (
 type Game struct{}
 
 func init() {
+	rand.Seed(time.Now().Unix())
+
 	space.Init(1200, 600)
 	player.Init()
 
