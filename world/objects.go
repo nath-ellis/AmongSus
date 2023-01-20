@@ -88,5 +88,20 @@ func NewObject(x float64, y float64, Type string) {
 				space.Space.Add(o.Obj)
 			}
 		}
+	case "platformspikes":
+		Type = "turretbase"
+		Objects = append(Objects, Object{resolv.NewObject(x, y, 124, 62, "object", Type), Type})
+		Objects = append(Objects, Object{resolv.NewObject(x, y-62, 124, 62, "object", Type), Type})
+		Objects = append(Objects, Object{resolv.NewObject(x+248, y, 124, 62, "object", Type), Type})
+		Objects = append(Objects, Object{resolv.NewObject(x+248, y-62, 124, 62, "object", Type), Type})
+
+		Type = "spikes"
+		Objects = append(Objects, Object{resolv.NewObject(x+124, y, 124, 62, "object", Type), Type})
+
+		for _, o := range Objects {
+			if (o.Obj.X == x || o.Obj.X == x+124 || o.Obj.X == x+248) && (o.Obj.Y == y || o.Obj.Y == y+62 || o.Obj.Y == y-62) {
+				space.Space.Add(o.Obj)
+			}
+		}
 	}
 }
