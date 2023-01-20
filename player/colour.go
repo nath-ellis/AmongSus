@@ -7,9 +7,9 @@ import (
 )
 
 var (
-	limeIdle, _, _   = ebitenutil.NewImageFromFile("res/Lime/idle.png")
-	cyanIdle, _, _   = ebitenutil.NewImageFromFile("res/Cyan/idle.png")
-	yellowIdle, _, _ = ebitenutil.NewImageFromFile("res/Yellow/idle.png")
+	limeIdle, _, _   = ebitenutil.NewImageFromFile("res/lime/idle.png")
+	cyanIdle, _, _   = ebitenutil.NewImageFromFile("res/cyan/idle.png")
+	yellowIdle, _, _ = ebitenutil.NewImageFromFile("res/yellow/idle.png")
 	leftDark, _, _   = ebitenutil.NewImageFromFile("res/prompts/left_dark.png")
 	leftLight, _, _  = ebitenutil.NewImageFromFile("res/prompts/left_light.png")
 	rightDark, _, _  = ebitenutil.NewImageFromFile("res/prompts/right_dark.png")

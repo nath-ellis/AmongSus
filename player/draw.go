@@ -9,9 +9,9 @@ var (
 	limeWalking         []*ebiten.Image
 	cyanWalking         []*ebiten.Image
 	yellowWalking       []*ebiten.Image
-	limeFalling, _, _   = ebitenutil.NewImageFromFile("res/Lime/jumping.png")
-	cyanFalling, _, _   = ebitenutil.NewImageFromFile("res/Cyan/jumping.png")
-	yellowFalling, _, _ = ebitenutil.NewImageFromFile("res/Yellow/jumping.png")
+	limeFalling, _, _   = ebitenutil.NewImageFromFile("res/lime/jumping.png")
+	cyanFalling, _, _   = ebitenutil.NewImageFromFile("res/cyan/jumping.png")
+	yellowFalling, _, _ = ebitenutil.NewImageFromFile("res/yellow/jumping.png")
 )
 
 func Draw(screen *ebiten.Image) {

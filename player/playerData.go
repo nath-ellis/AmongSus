@@ -36,30 +36,30 @@ func Init() {
 	space.Space.Add(Player.Obj)
 
 	// Imports sprites
-	limeWalking1, _, _ := ebitenutil.NewImageFromFile("res/Lime/walking-1.png")
-	limeWalking2, _, _ := ebitenutil.NewImageFromFile("res/Lime/walking-2.png")
-	limeWalking3, _, _ := ebitenutil.NewImageFromFile("res/Lime/walking-3.png")
-	limeWalking4, _, _ := ebitenutil.NewImageFromFile("res/Lime/walking-4.png")
+	limeWalking1, _, _ := ebitenutil.NewImageFromFile("res/lime/walking-1.png")
+	limeWalking2, _, _ := ebitenutil.NewImageFromFile("res/lime/walking-2.png")
+	limeWalking3, _, _ := ebitenutil.NewImageFromFile("res/lime/walking-3.png")
+	limeWalking4, _, _ := ebitenutil.NewImageFromFile("res/lime/walking-4.png")
 
 	limeWalking = append(limeWalking, limeWalking1)
 	limeWalking = append(limeWalking, limeWalking2)
 	limeWalking = append(limeWalking, limeWalking3)
 	limeWalking = append(limeWalking, limeWalking4)
 
-	cyanWalking1, _, _ := ebitenutil.NewImageFromFile("res/Cyan/walking-1.png")
-	cyanWalking2, _, _ := ebitenutil.NewImageFromFile("res/Cyan/walking-2.png")
-	cyanWalking3, _, _ := ebitenutil.NewImageFromFile("res/Cyan/walking-3.png")
-	cyanWalking4, _, _ := ebitenutil.NewImageFromFile("res/Cyan/walking-4.png")
+	cyanWalking1, _, _ := ebitenutil.NewImageFromFile("res/cyan/walking-1.png")
+	cyanWalking2, _, _ := ebitenutil.NewImageFromFile("res/cyan/walking-2.png")
+	cyanWalking3, _, _ := ebitenutil.NewImageFromFile("res/cyan/walking-3.png")
+	cyanWalking4, _, _ := ebitenutil.NewImageFromFile("res/cyan/walking-4.png")
 
 	cyanWalking = append(cyanWalking, cyanWalking1)
 	cyanWalking = append(cyanWalking, cyanWalking2)
 	cyanWalking = append(cyanWalking, cyanWalking3)
 	cyanWalking = append(cyanWalking, cyanWalking4)
 
-	yellowWalking1, _, _ := ebitenutil.NewImageFromFile("res/Yellow/walking-1.png")
-	yellowWalking2, _, _ := ebitenutil.NewImageFromFile("res/Yellow/walking-2.png")
-	yellowWalking3, _, _ := ebitenutil.NewImageFromFile("res/Yellow/walking-3.png")
-	yellowWalking4, _, _ := ebitenutil.NewImageFromFile("res/Yellow/walking-4.png")
+	yellowWalking1, _, _ := ebitenutil.NewImageFromFile("res/yellow/walking-1.png")
+	yellowWalking2, _, _ := ebitenutil.NewImageFromFile("res/yellow/walking-2.png")
+	yellowWalking3, _, _ := ebitenutil.NewImageFromFile("res/yellow/walking-3.png")
+	yellowWalking4, _, _ := ebitenutil.NewImageFromFile("res/yellow/walking-4.png")
 
 	yellowWalking = append(yellowWalking, yellowWalking1)
 	yellowWalking = append(yellowWalking, yellowWalking2)
