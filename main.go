@@ -29,9 +29,9 @@ func (g *Game) Update() error {
 		if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
 			posX, posY := ebiten.CursorPosition()
 
-			if (posX > 5 && posX < 37) && (posY > 105 && posY < 137) {
+			if (posX > 5 && posX < 37) && (posY > 105 && posY < 137) { // Left Button
 				player.ChangeColour(ebiten.Key(ebiten.MouseButtonLeft))
-			} else if (posX > 45 && posX < 77) && (posY > 105 && posY < 137) {
+			} else if (posX > 45 && posX < 77) && (posY > 105 && posY < 137) { // Right Button
 				player.ChangeColour(ebiten.Key(ebiten.MouseButtonRight))
 			} else {
 				player.Player.State = "game"
@@ -45,11 +45,12 @@ func (g *Game) Update() error {
 		if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
 			posX, posY := ebiten.CursorPosition()
 
-			if (posX > 5 && posX < 37) && (posY > 105 && posY < 137) {
+			if (posX > 5 && posX < 37) && (posY > 105 && posY < 137) { // Left Button
 				player.ChangeColour(ebiten.Key(ebiten.MouseButtonLeft))
-			} else if (posX > 45 && posX < 77) && (posY > 105 && posY < 137) {
+			} else if (posX > 45 && posX < 77) && (posY > 105 && posY < 137) { // Right Button
 				player.ChangeColour(ebiten.Key(ebiten.MouseButtonRight))
 			} else {
+				// Reset the game
 				player.Player.Obj.X = 50
 				player.Player.Obj.Y = -100
 
@@ -57,23 +58,23 @@ func (g *Game) Update() error {
 				world.ObjTicker = 0
 				world.MaxObjTicker = 250
 
+				// Remove all objects
 				for _, o := range world.Objects {
-					if o.Type != "platform" {
-						tmp := []world.Object{}
-
-						for _, O := range world.Objects {
-							if o.Obj.X == O.Obj.X && o.Type == O.Type {
-								continue
-							}
-							tmp = append(tmp, O)
-						}
-
-						space.Space.Remove(o.Obj)
-
-						world.Objects = []world.Object{}
-						world.Objects = tmp
-					}
+					space.Space.Remove(o.Obj)
 				}
+
+				world.Objects = []world.Object{}
+				world.NewObject(0, 476, "platform")
+				world.NewObject(124, 476, "platform")
+				world.NewObject(248, 476, "platform")
+				world.NewObject(372, 476, "platform")
+				world.NewObject(496, 476, "platform")
+				world.NewObject(620, 476, "platform")
+				world.NewObject(744, 476, "platform")
+				world.NewObject(868, 476, "platform")
+				world.NewObject(992, 476, "platform")
+				world.NewObject(1116, 476, "platform")
+				world.NewObject(1240, 476, "platform")
 
 				player.Player.State = "game"
 			}
