@@ -72,7 +72,7 @@ func Controls() {
 
 	Player.Obj.Update()
 
-	if Player.Obj.X < -Player.Obj.W {
+	if Player.Obj.X <= -Player.Obj.W {
 		Player.State = "gameOver"
 	}
 }
