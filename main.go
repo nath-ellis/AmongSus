@@ -53,6 +53,10 @@ func (g *Game) Update() error {
 				player.Player.Obj.X = 50
 				player.Player.Obj.Y = -100
 
+				world.Speed = 2
+				world.ObjTicker = 0
+				world.MaxObjTicker = 250
+
 				for _, o := range world.Objects {
 					if o.Type != "platform" {
 						tmp := []world.Object{}
