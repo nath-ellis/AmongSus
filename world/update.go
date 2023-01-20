@@ -6,10 +6,13 @@ import (
 	"github.com/nath-ellis/AmongSus/space"
 )
 
-var objTicker int = 0
+var (
+	ObjTicker    int = 0
+	MaxObjTicker int = 250
+)
 
 func Update() {
-	if objTicker <= 0 {
+	if ObjTicker <= 0 {
 		r := rand.Intn(11)
 
 		switch r {
@@ -40,9 +43,24 @@ func Update() {
 			NewObject(1332, 290, "columnspikes")
 		}
 
-		objTicker = 300
+		ObjTicker = MaxObjTicker
+
+		if r%2 == 0 {
+			chance := rand.Intn(6)
+			if Speed < MaxSpeed && chance == 1 {
+				Speed += 1
+			}
+
+			if Speed >= 5 {
+				MaxObjTicker = 100
+			} else if Speed >= 4 {
+				MaxObjTicker = 150
+			} else if Speed >= 3 {
+				MaxObjTicker = 200
+			}
+		}
 	} else {
-		objTicker -= 1
+		ObjTicker -= 1
 	}
 
 	for _, o := range Objects {
