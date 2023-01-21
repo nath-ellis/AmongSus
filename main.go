@@ -15,44 +15,46 @@ import (
 
 type Game struct{}
 
+var Player player.PlayerData
+
 func init() {
 	rand.Seed(time.Now().Unix())
 
 	space.Init(1200, 600)
-	player.Init()
+	Player.Init()
 
 	world.Init()
 }
 
 func (g *Game) Update() error {
-	if player.Player.State == "menu" {
+	if Player.State == "menu" {
 		if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
 			posX, posY := ebiten.CursorPosition()
 
 			if (posX > 5 && posX < 37) && (posY > 105 && posY < 137) { // Left Button
-				player.ChangeColour(ebiten.Key(ebiten.MouseButtonLeft))
+				Player.ChangeColour(ebiten.Key(ebiten.MouseButtonLeft))
 			} else if (posX > 45 && posX < 77) && (posY > 105 && posY < 137) { // Right Button
-				player.ChangeColour(ebiten.Key(ebiten.MouseButtonRight))
+				Player.ChangeColour(ebiten.Key(ebiten.MouseButtonRight))
 			} else {
-				player.Player.State = "game"
+				Player.State = "game"
 			}
 		}
-		player.ColourSelectorCtl()
-	} else if player.Player.State == "game" {
-		player.Controls()
+		Player.ColourSelectorCtl()
+	} else if Player.State == "game" {
+		Player.Controls()
 		world.Update()
-	} else if player.Player.State == "gameOver" {
+	} else if Player.State == "gameOver" {
 		if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
 			posX, posY := ebiten.CursorPosition()
 
 			if (posX > 5 && posX < 37) && (posY > 105 && posY < 137) { // Left Button
-				player.ChangeColour(ebiten.Key(ebiten.MouseButtonLeft))
+				Player.ChangeColour(ebiten.Key(ebiten.MouseButtonLeft))
 			} else if (posX > 45 && posX < 77) && (posY > 105 && posY < 137) { // Right Button
-				player.ChangeColour(ebiten.Key(ebiten.MouseButtonRight))
+				Player.ChangeColour(ebiten.Key(ebiten.MouseButtonRight))
 			} else {
 				// Reset the game
-				player.Player.Obj.X = 50
-				player.Player.Obj.Y = -100
+				Player.Obj.X = 50
+				Player.Obj.Y = -100
 
 				world.Speed = 2
 				world.ObjTicker = 0
@@ -76,25 +78,25 @@ func (g *Game) Update() error {
 				world.NewObject(1116, 476, "platform")
 				world.NewObject(1240, 476, "platform")
 
-				player.Player.State = "game"
+				Player.State = "game"
 			}
 		}
-		player.ColourSelectorCtl()
+		Player.ColourSelectorCtl()
 	}
 
 	return nil
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	if player.Player.State == "menu" {
+	if Player.State == "menu" {
 		world.DrawMenu(screen)
-		player.DrawColourSelector(screen)
-	} else if player.Player.State == "game" {
+		Player.DrawColourSelector(screen)
+	} else if Player.State == "game" {
 		world.Draw(screen)
-		player.Draw(screen)
-	} else if player.Player.State == "gameOver" {
+		Player.Draw(screen)
+	} else if Player.State == "gameOver" {
 		world.DrawGameOver(screen)
-		player.DrawColourSelector(screen)
+		Player.DrawColourSelector(screen)
 	}
 }
 
