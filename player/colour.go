@@ -7,9 +7,6 @@ import (
 )
 
 var (
-	limeIdle, _, _   = ebitenutil.NewImageFromFile("res/lime/idle.png")
-	cyanIdle, _, _   = ebitenutil.NewImageFromFile("res/cyan/idle.png")
-	yellowIdle, _, _ = ebitenutil.NewImageFromFile("res/yellow/idle.png")
 	leftDark, _, _   = ebitenutil.NewImageFromFile("res/prompts/left_dark.png")
 	leftLight, _, _  = ebitenutil.NewImageFromFile("res/prompts/left_light.png")
 	rightDark, _, _  = ebitenutil.NewImageFromFile("res/prompts/right_dark.png")
@@ -36,6 +33,8 @@ func ChangeColour(key ebiten.Key) {
 			Player.Colour = "cyan"
 		}
 	}
+
+	loadSprites()
 }
 
 func ColourSelectorCtl() {
@@ -50,13 +49,7 @@ func DrawColourSelector(screen *ebiten.Image) {
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(5, 5)
 
-	if Player.Colour == "lime" {
-		screen.DrawImage(limeIdle, op)
-	} else if Player.Colour == "cyan" {
-		screen.DrawImage(cyanIdle, op)
-	} else if Player.Colour == "yellow" {
-		screen.DrawImage(yellowIdle, op)
-	}
+	screen.DrawImage(Player.IdleSprite, op)
 
 	posX, posY := ebiten.CursorPosition()
 
