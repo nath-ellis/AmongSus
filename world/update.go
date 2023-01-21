@@ -31,14 +31,11 @@ func Update() {
 		case 7:
 			NewObject(1240, 414, "platformspikes")
 		case 8:
-			NewObject(1240, 414, "longplatform")
-			NewObject(1240, 352, "spikehill")
+			NewObject(1240, 414, "highspikeshill")
 		case 9:
-			NewObject(1240, 414, "longplatform")
-			NewObject(1240, 352, "hill")
+			NewObject(1240, 414, "tallhill")
 		case 10:
-			NewObject(1240, 414, "longplatform")
-			NewObject(1332, 290, "columnspikes")
+			NewObject(1240, 414, "platformcolumnspikes")
 		}
 
 		ObjTicker = MaxObjTicker
@@ -63,5 +60,9 @@ func Update() {
 
 	for _, o := range Objects {
 		o.Update()
+	}
+
+	for _, c := range Coins {
+		c.Update()
 	}
 }

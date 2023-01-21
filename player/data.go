@@ -21,6 +21,7 @@ type PlayerData struct {
 	WalkingStage   int
 	WalkCool       int
 	State          string
+	Coins          int
 }
 
 func (p *PlayerData) Init() {
@@ -34,6 +35,7 @@ func (p *PlayerData) Init() {
 	p.WalkingStage = 0
 	p.WalkCool = 0
 	p.State = "menu"
+	p.Coins = 0
 
 	space.Space.Add(p.Obj)
 

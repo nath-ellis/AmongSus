@@ -78,6 +78,8 @@ func (g *Game) Update() error {
 				world.NewObject(1116, 476, "platform")
 				world.NewObject(1240, 476, "platform")
 
+				world.Coins = []world.Coin{}
+
 				Player.State = "game"
 			}
 		}
