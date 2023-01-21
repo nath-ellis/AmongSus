@@ -174,6 +174,7 @@ func NewObject(x float64, y float64, Type string) {
 			NewCoin(x+138, y-52)
 			NewCoin(x+188, y-52)
 		}
+
 	case "highspikeshill":
 		Type = "turretbase"
 		newObjects = append(newObjects, Object{resolv.NewObject(x, y, 124, 62, "object", Type), Type})
@@ -189,6 +190,7 @@ func NewObject(x float64, y float64, Type string) {
 		if coinChance == 2 {
 			NewCoin(x+165, y-285)
 		}
+
 	case "tallhill":
 		Type = "turretbase"
 		newObjects = append(newObjects, Object{resolv.NewObject(x, y, 124, 62, "object", Type), Type})
@@ -204,6 +206,7 @@ func NewObject(x float64, y float64, Type string) {
 			NewCoin(x+162, y-176)
 			NewCoin(x+286, y-114)
 		}
+
 	case "platformcolumnspikes":
 		Type = "turretbase"
 		newObjects = append(newObjects, Object{resolv.NewObject(x, y, 124, 62, "object", Type), Type})
