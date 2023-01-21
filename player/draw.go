@@ -2,47 +2,22 @@ package player
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
-var (
-	limeWalking         []*ebiten.Image
-	cyanWalking         []*ebiten.Image
-	yellowWalking       []*ebiten.Image
-	limeFalling, _, _   = ebitenutil.NewImageFromFile("res/lime/jumping.png")
-	cyanFalling, _, _   = ebitenutil.NewImageFromFile("res/cyan/jumping.png")
-	yellowFalling, _, _ = ebitenutil.NewImageFromFile("res/yellow/jumping.png")
-)
+var ()
 
 func Draw(screen *ebiten.Image) {
-	if Player.WalkingStage >= (len(limeWalking)-1) ||
-		Player.WalkingStage >= (len(cyanWalking)-1) ||
-		Player.WalkingStage >= (len(yellowWalking)-1) {
+	if Player.WalkingStage >= (len(Player.WalkingSprites) - 1) {
 		Player.WalkingStage = 0
 	}
 
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(Player.Obj.X, Player.Obj.Y)
 
-	switch Player.Colour {
-	case "lime":
-		if Player.Falling {
-			screen.DrawImage(limeFalling, op)
-		} else {
-			screen.DrawImage(limeWalking[Player.WalkingStage], op)
-		}
-	case "cyan":
-		if Player.Falling {
-			screen.DrawImage(cyanFalling, op)
-		} else {
-			screen.DrawImage(cyanWalking[Player.WalkingStage], op)
-		}
-	case "yellow":
-		if Player.Falling {
-			screen.DrawImage(yellowFalling, op)
-		} else {
-			screen.DrawImage(yellowWalking[Player.WalkingStage], op)
-		}
+	if Player.Falling {
+		screen.DrawImage(Player.FallingSprite, op)
+	} else {
+		screen.DrawImage(Player.WalkingSprites[Player.WalkingStage], op)
 	}
 
 	if Player.WalkCool < 0 {
