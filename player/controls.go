@@ -8,6 +8,16 @@ import (
 )
 
 func (p *PlayerData) Controls() {
+	// Check for coins
+	if c := p.Obj.Check(0, 0, "coin"); c != nil {
+		for _, coin := range world.Coins {
+			if c.Objects[0].X == coin.Obj.X && c.Objects[0].Y == coin.Obj.Y {
+				coin.Remove()
+				p.Coins += 1
+			}
+		}
+	}
+
 	// X Collision and movement
 	xSpeed := 0.0
 

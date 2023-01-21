@@ -1,6 +1,8 @@
 package world
 
 import (
+	"math/rand"
+
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/nath-ellis/AmongSus/space"
 	"github.com/solarlune/resolv"
@@ -76,6 +78,7 @@ func (o *Object) Remove() {
 
 func NewObject(x float64, y float64, Type string) {
 	newObjects := []Object{}
+	coinChance := rand.Intn(4)
 
 	switch Type {
 	case "platform":
@@ -84,8 +87,16 @@ func NewObject(x float64, y float64, Type string) {
 	case "column":
 		newObjects = append(newObjects, Object{resolv.NewObject(x, y, 31, 124, "object", Type), Type})
 
+		if coinChance == 1 || coinChance == 2 {
+			NewCoin(x-2, y-310)
+		}
+
 	case "spikes":
 		newObjects = append(newObjects, Object{resolv.NewObject(x, y, 124, 62, "object", Type), Type})
+
+		if coinChance == 1 || coinChance == 2 {
+			NewCoin(x+39.5, y-168)
+		}
 
 	case "turretbase":
 		newObjects = append(newObjects, Object{resolv.NewObject(x, y, 124, 62, "object", Type), Type})
@@ -96,6 +107,23 @@ func NewObject(x float64, y float64, Type string) {
 		newObjects = append(newObjects, Object{resolv.NewObject(x+124, y, 124, 62, "object", Type), Type})
 		newObjects = append(newObjects, Object{resolv.NewObject(x+248, y, 124, 62, "object", Type), Type})
 
+		coinChance = rand.Intn(10)
+
+		if coinChance == 1 {
+			NewCoin(x+8, y-48)
+			NewCoin(x+8, y-108)
+			NewCoin(x+70, y-48)
+			NewCoin(x+70, y-108)
+			NewCoin(x+132, y-48)
+			NewCoin(x+132, y-108)
+			NewCoin(x+194, y-48)
+			NewCoin(x+194, y-108)
+			NewCoin(x+256, y-48)
+			NewCoin(x+256, y-108)
+			NewCoin(x+318, y-48)
+			NewCoin(x+318, y-108)
+		}
+
 	case "columnspikes":
 		Type = "column"
 		newObjects = append(newObjects, Object{resolv.NewObject(x, y, 31, 124, "object", Type), Type})
@@ -104,12 +132,20 @@ func NewObject(x float64, y float64, Type string) {
 		Type = "spikes"
 		newObjects = append(newObjects, Object{resolv.NewObject(x+31, y+62, 124, 62, "object", Type), Type})
 
+		if coinChance == 2 {
+			NewCoin(x+70.5, y+5)
+		}
+
 	case "hill":
 		Type = "turretbase"
 		newObjects = append(newObjects, Object{resolv.NewObject(x, y, 124, 62, "object", Type), Type})
 		newObjects = append(newObjects, Object{resolv.NewObject(x+124, y, 124, 62, "object", Type), Type})
 		newObjects = append(newObjects, Object{resolv.NewObject(x+248, y, 124, 62, "object", Type), Type})
 		newObjects = append(newObjects, Object{resolv.NewObject(x+124, y-62, 124, 62, "object", Type), Type})
+
+		if coinChance == 3 {
+			NewCoin(x+165, y-117)
+		}
 
 	case "spikehill":
 		Type = "turretbase"
@@ -120,6 +156,10 @@ func NewObject(x float64, y float64, Type string) {
 		Type = "spikes"
 		newObjects = append(newObjects, Object{resolv.NewObject(x+124, y-62, 124, 62, "object", Type), Type})
 
+		if coinChance == 3 {
+			NewCoin(x+165, y-175)
+		}
+
 	case "platformspikes":
 		Type = "turretbase"
 		newObjects = append(newObjects, Object{resolv.NewObject(x, y, 124, 62, "object", Type), Type})
@@ -129,6 +169,57 @@ func NewObject(x float64, y float64, Type string) {
 
 		Type = "spikes"
 		newObjects = append(newObjects, Object{resolv.NewObject(x+124, y, 124, 62, "object", Type), Type})
+
+		if coinChance == 3 {
+			NewCoin(x+138, y-52)
+			NewCoin(x+188, y-52)
+		}
+	case "highspikeshill":
+		Type = "turretbase"
+		newObjects = append(newObjects, Object{resolv.NewObject(x, y, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+124, y, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+248, y, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x, y-62, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+124, y-62, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+248, y-62, 124, 62, "object", Type), Type})
+
+		Type = "spikes"
+		newObjects = append(newObjects, Object{resolv.NewObject(x+124, y-124, 124, 62, "object", Type), Type})
+
+		if coinChance == 2 {
+			NewCoin(x+165, y-285)
+		}
+	case "tallhill":
+		Type = "turretbase"
+		newObjects = append(newObjects, Object{resolv.NewObject(x, y, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+124, y, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+248, y, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x, y-62, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+124, y-62, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+248, y-62, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+124, y-124, 124, 62, "object", Type), Type})
+
+		if coinChance == 3 {
+			NewCoin(x+38, y-114)
+			NewCoin(x+162, y-176)
+			NewCoin(x+286, y-114)
+		}
+	case "platformcolumnspikes":
+		Type = "turretbase"
+		newObjects = append(newObjects, Object{resolv.NewObject(x, y, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+124, y, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+248, y, 124, 62, "object", Type), Type})
+
+		Type = "column"
+		newObjects = append(newObjects, Object{resolv.NewObject(x+92, y-124, 31, 124, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+247, y-124, 31, 124, "object", Type), Type})
+
+		Type = "spikes"
+		newObjects = append(newObjects, Object{resolv.NewObject(x+123, y-62, 124, 62, "object", Type), Type})
+
+		if coinChance == 2 {
+			NewCoin(x+162.5, y-119)
+		}
 	}
 
 	if len(newObjects) > 0 {
