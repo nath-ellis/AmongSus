@@ -13,43 +13,43 @@ var (
 	rightLight, _, _ = ebitenutil.NewImageFromFile("res/prompts/right_light.png")
 )
 
-func ChangeColour(key ebiten.Key) {
+func (p *PlayerData) ChangeColour(key ebiten.Key) {
 	if key == ebiten.KeyRight || key == ebiten.Key(ebiten.MouseButtonRight) {
-		if Player.Colour == "lime" {
-			Player.Colour = "cyan"
-		} else if Player.Colour == "cyan" {
-			Player.Colour = "yellow"
-		} else if Player.Colour == "yellow" {
-			Player.Colour = "lime"
+		if p.Colour == "lime" {
+			p.Colour = "cyan"
+		} else if p.Colour == "cyan" {
+			p.Colour = "yellow"
+		} else if p.Colour == "yellow" {
+			p.Colour = "lime"
 		}
 	}
 
 	if key == ebiten.KeyLeft || key == ebiten.Key(ebiten.MouseButtonLeft) {
-		if Player.Colour == "lime" {
-			Player.Colour = "yellow"
-		} else if Player.Colour == "cyan" {
-			Player.Colour = "lime"
-		} else if Player.Colour == "yellow" {
-			Player.Colour = "cyan"
+		if p.Colour == "lime" {
+			p.Colour = "yellow"
+		} else if p.Colour == "cyan" {
+			p.Colour = "lime"
+		} else if p.Colour == "yellow" {
+			p.Colour = "cyan"
 		}
 	}
 
-	loadSprites()
+	p.LoadSprites()
 }
 
-func ColourSelectorCtl() {
+func (p *PlayerData) ColourSelectorCtl() {
 	if inpututil.IsKeyJustPressed(ebiten.KeyRight) {
-		ChangeColour(ebiten.KeyRight)
+		p.ChangeColour(ebiten.KeyRight)
 	} else if inpututil.IsKeyJustPressed(ebiten.KeyLeft) {
-		ChangeColour(ebiten.KeyLeft)
+		p.ChangeColour(ebiten.KeyLeft)
 	}
 }
 
-func DrawColourSelector(screen *ebiten.Image) {
+func (p *PlayerData) DrawColourSelector(screen *ebiten.Image) {
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(5, 5)
 
-	screen.DrawImage(Player.IdleSprite, op)
+	screen.DrawImage(p.IdleSprite, op)
 
 	posX, posY := ebiten.CursorPosition()
 

@@ -23,75 +23,73 @@ type PlayerData struct {
 	State          string
 }
 
-var Player PlayerData
+func (p *PlayerData) Init() {
+	p.Obj = resolv.NewObject(50, -100, 90, 95, "player")
+	p.Colour = "lime"
+	p.XSpeed = 5
+	p.YSpeed = 2.0
+	p.YVel = 1.0
+	p.JumpSpeed = 21.0
+	p.Falling = false
+	p.WalkingStage = 0
+	p.WalkCool = 0
+	p.State = "menu"
 
-func Init() {
-	Player.Obj = resolv.NewObject(50, -100, 90, 95, "player")
-	Player.Colour = "lime"
-	Player.XSpeed = 5
-	Player.YSpeed = 2.0
-	Player.YVel = 1.0
-	Player.JumpSpeed = 21.0
-	Player.Falling = false
-	Player.WalkingStage = 0
-	Player.WalkCool = 0
-	Player.State = "menu"
+	space.Space.Add(p.Obj)
 
-	space.Space.Add(Player.Obj)
-
-	loadSprites()
+	p.LoadSprites()
 }
 
-func loadSprites() {
+func (p *PlayerData) LoadSprites() {
 	// Imports sprites
-	switch Player.Colour {
+	switch p.Colour {
 	case "lime":
-		Player.IdleSprite, _, _ = ebitenutil.NewImageFromFile("res/lime/idle.png")
+		p.IdleSprite, _, _ = ebitenutil.NewImageFromFile("res/lime/idle.png")
 
-		Player.FallingSprite, _, _ = ebitenutil.NewImageFromFile("res/lime/jumping.png")
+		p.FallingSprite, _, _ = ebitenutil.NewImageFromFile("res/lime/jumping.png")
 
-		Player.WalkingSprites = []*ebiten.Image{}
+		p.WalkingSprites = []*ebiten.Image{}
 
 		walking1, _, _ := ebitenutil.NewImageFromFile("res/lime/walking-1.png")
 		walking2, _, _ := ebitenutil.NewImageFromFile("res/lime/walking-2.png")
 		walking3, _, _ := ebitenutil.NewImageFromFile("res/lime/walking-3.png")
 		walking4, _, _ := ebitenutil.NewImageFromFile("res/lime/walking-4.png")
 
-		Player.WalkingSprites = append(Player.WalkingSprites, walking1)
-		Player.WalkingSprites = append(Player.WalkingSprites, walking2)
-		Player.WalkingSprites = append(Player.WalkingSprites, walking3)
-		Player.WalkingSprites = append(Player.WalkingSprites, walking4)
+		p.WalkingSprites = append(p.WalkingSprites, walking1)
+		p.WalkingSprites = append(p.WalkingSprites, walking2)
+		p.WalkingSprites = append(p.WalkingSprites, walking3)
+		p.WalkingSprites = append(p.WalkingSprites, walking4)
 	case "cyan":
-		Player.IdleSprite, _, _ = ebitenutil.NewImageFromFile("res/cyan/idle.png")
+		p.IdleSprite, _, _ = ebitenutil.NewImageFromFile("res/cyan/idle.png")
 
-		Player.FallingSprite, _, _ = ebitenutil.NewImageFromFile("res/cyan/jumping.png")
+		p.FallingSprite, _, _ = ebitenutil.NewImageFromFile("res/cyan/jumping.png")
 
-		Player.WalkingSprites = []*ebiten.Image{}
+		p.WalkingSprites = []*ebiten.Image{}
 
 		walking1, _, _ := ebitenutil.NewImageFromFile("res/cyan/walking-1.png")
 		walking2, _, _ := ebitenutil.NewImageFromFile("res/cyan/walking-2.png")
 		walking3, _, _ := ebitenutil.NewImageFromFile("res/cyan/walking-3.png")
 		walking4, _, _ := ebitenutil.NewImageFromFile("res/cyan/walking-4.png")
 
-		Player.WalkingSprites = append(Player.WalkingSprites, walking1)
-		Player.WalkingSprites = append(Player.WalkingSprites, walking2)
-		Player.WalkingSprites = append(Player.WalkingSprites, walking3)
-		Player.WalkingSprites = append(Player.WalkingSprites, walking4)
+		p.WalkingSprites = append(p.WalkingSprites, walking1)
+		p.WalkingSprites = append(p.WalkingSprites, walking2)
+		p.WalkingSprites = append(p.WalkingSprites, walking3)
+		p.WalkingSprites = append(p.WalkingSprites, walking4)
 	case "yellow":
-		Player.IdleSprite, _, _ = ebitenutil.NewImageFromFile("res/yellow/idle.png")
+		p.IdleSprite, _, _ = ebitenutil.NewImageFromFile("res/yellow/idle.png")
 
-		Player.FallingSprite, _, _ = ebitenutil.NewImageFromFile("res/yellow/jumping.png")
+		p.FallingSprite, _, _ = ebitenutil.NewImageFromFile("res/yellow/jumping.png")
 
-		Player.WalkingSprites = []*ebiten.Image{}
+		p.WalkingSprites = []*ebiten.Image{}
 
 		walking1, _, _ := ebitenutil.NewImageFromFile("res/yellow/walking-1.png")
 		walking2, _, _ := ebitenutil.NewImageFromFile("res/yellow/walking-2.png")
 		walking3, _, _ := ebitenutil.NewImageFromFile("res/yellow/walking-3.png")
 		walking4, _, _ := ebitenutil.NewImageFromFile("res/yellow/walking-4.png")
 
-		Player.WalkingSprites = append(Player.WalkingSprites, walking1)
-		Player.WalkingSprites = append(Player.WalkingSprites, walking2)
-		Player.WalkingSprites = append(Player.WalkingSprites, walking3)
-		Player.WalkingSprites = append(Player.WalkingSprites, walking4)
+		p.WalkingSprites = append(p.WalkingSprites, walking1)
+		p.WalkingSprites = append(p.WalkingSprites, walking2)
+		p.WalkingSprites = append(p.WalkingSprites, walking3)
+		p.WalkingSprites = append(p.WalkingSprites, walking4)
 	}
 }
