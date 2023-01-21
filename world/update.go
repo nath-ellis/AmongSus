@@ -2,8 +2,6 @@ package world
 
 import (
 	"math/rand"
-
-	"github.com/nath-ellis/AmongSus/space"
 )
 
 var (
@@ -64,49 +62,6 @@ func Update() {
 	}
 
 	for _, o := range Objects {
-		switch o.Type {
-		case "platform":
-			o.Obj.X -= Speed
-
-			if o.Obj.X <= -124 {
-				o.Obj.X = 1240
-			}
-		case "column":
-			o.Obj.X -= Speed
-
-			if o.Obj.X <= -32 { // removes it
-				removeObject(o)
-			}
-		case "spikes":
-			o.Obj.X -= Speed
-
-			if o.Obj.X <= -125 { // removes it
-				removeObject(o)
-			}
-		case "turretbase":
-			o.Obj.X -= Speed
-
-			if o.Obj.X <= -250 { // removes it
-				removeObject(o)
-			}
-		}
-
-		o.Obj.Update()
+		o.Update()
 	}
-}
-
-func removeObject(o Object) {
-	tmp := []Object{}
-
-	for _, O := range Objects {
-		if o.Obj.X == O.Obj.X && o.Type == O.Type {
-			continue
-		}
-		tmp = append(tmp, O)
-	}
-
-	space.Space.Remove(o.Obj)
-
-	Objects = []Object{}
-	Objects = tmp
 }

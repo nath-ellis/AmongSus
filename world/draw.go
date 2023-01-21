@@ -17,18 +17,6 @@ func Draw(screen *ebiten.Image) {
 	screen.DrawImage(bg, nil)
 
 	for _, o := range Objects {
-		op := &ebiten.DrawImageOptions{}
-		op.GeoM.Translate(o.Obj.X, o.Obj.Y)
-
-		switch o.Type {
-		case "platform":
-			screen.DrawImage(platform, op)
-		case "column":
-			screen.DrawImage(column, op)
-		case "spikes":
-			screen.DrawImage(spikes, op)
-		case "turretbase":
-			screen.DrawImage(turretbase, op)
-		}
+		o.Draw(screen)
 	}
 }
