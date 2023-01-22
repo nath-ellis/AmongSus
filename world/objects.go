@@ -100,6 +100,12 @@ func NewObject(x float64, y float64, Type string) {
 	case "leftspikes":
 		newObjects = append(newObjects, Object{resolv.NewObject(x, y, 62, 124, "object", Type), Type})
 
+		coinChance = 1
+		if coinChance == 1 {
+			NewCoin(x-62, y+6)
+			NewCoin(x-62, y+68)
+		}
+
 	case "turretbase":
 		newObjects = append(newObjects, Object{resolv.NewObject(x, y, 124, 62, "object", Type), Type})
 
@@ -234,5 +240,3 @@ func NewObject(x float64, y float64, Type string) {
 		}
 	}
 }
-
-// TODO: Add left facing spikes
