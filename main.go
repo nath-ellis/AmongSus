@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	_ "image/png"
 	"log"
 	"math/rand"
@@ -91,13 +92,13 @@ func (g *Game) Update() error {
 
 func (g *Game) Draw(screen *ebiten.Image) {
 	if Player.State == "menu" {
-		world.DrawMenu(screen)
+		world.DrawMenu(screen, fmt.Sprint(Player.Coins))
 		Player.DrawColourSelector(screen)
 	} else if Player.State == "game" {
 		world.Draw(screen)
 		Player.Draw(screen)
 	} else if Player.State == "gameOver" {
-		world.DrawGameOver(screen)
+		world.DrawGameOver(screen, fmt.Sprint(Player.Coins))
 		Player.DrawColourSelector(screen)
 	}
 }
