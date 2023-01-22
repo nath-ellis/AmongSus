@@ -11,7 +11,7 @@ var (
 
 func Update() {
 	if ObjTicker <= 0 {
-		r := rand.Intn(12)
+		r := rand.Intn(16)
 
 		switch r {
 		case 0:
@@ -38,6 +38,14 @@ func Update() {
 			NewObject(1240, 414, "tallhill")
 		case 11:
 			NewObject(1240, 414, "platformcolumnspikes")
+		case 12:
+			NewObject(1426, 352, "overhang")
+		case 13:
+			NewObject(1240, 414, "staircase")
+		case 14:
+			NewObject(1240, 352, "floatingL")
+		case 15:
+			NewObject(1240, 414, "spikejump")
 		}
 
 		ObjTicker = MaxObjTicker
