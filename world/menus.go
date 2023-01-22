@@ -1,8 +1,11 @@
 package world
 
 import (
+	"image/color"
+
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"github.com/hajimehoshi/ebiten/v2/text"
 )
 
 var (
@@ -12,7 +15,7 @@ var (
 	menubg, _, _   = ebitenutil.NewImageFromFile("res/space.png")
 )
 
-func DrawMenu(screen *ebiten.Image) {
+func DrawMenu(screen *ebiten.Image, coins string) {
 	op := &ebiten.DrawImageOptions{}
 
 	op.GeoM.Scale(0.8, 0.8)
@@ -28,9 +31,11 @@ func DrawMenu(screen *ebiten.Image) {
 	op.GeoM.Scale(0.3, 0.3)
 	op.GeoM.Translate(490, 400)
 	screen.DrawImage(click, op)
+
+	drawCoinAmount(screen, coins)
 }
 
-func DrawGameOver(screen *ebiten.Image) {
+func DrawGameOver(screen *ebiten.Image, coins string) {
 	op := &ebiten.DrawImageOptions{}
 
 	op.GeoM.Scale(0.8, 0.8)
@@ -46,4 +51,14 @@ func DrawGameOver(screen *ebiten.Image) {
 	op.GeoM.Scale(0.3, 0.3)
 	op.GeoM.Translate(490, 400)
 	screen.DrawImage(click, op)
+
+	drawCoinAmount(screen, coins)
+}
+
+func drawCoinAmount(screen *ebiten.Image, coins string) {
+	op := &ebiten.DrawImageOptions{}
+
+	op.GeoM.Translate(5, 540)
+	screen.DrawImage(coinFrame1, op)
+	text.Draw(screen, coins, VCROSDMono, 60, 590, color.White)
 }
