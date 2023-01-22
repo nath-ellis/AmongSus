@@ -98,12 +98,12 @@ func NewObject(x float64, y float64, Type string) {
 		}
 
 	case "leftspikes":
-		newObjects = append(newObjects, Object{resolv.NewObject(x, y, 62, 124, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+62, y, 62, 124, "object", Type), Type})
 
 		coinChance = 1
 		if coinChance == 1 {
-			NewCoin(x-62, y+6)
-			NewCoin(x-62, y+68)
+			NewCoin(x, y+6)
+			NewCoin(x, y+68)
 		}
 
 	case "turretbase":
@@ -230,6 +230,76 @@ func NewObject(x float64, y float64, Type string) {
 
 		if coinChance == 2 {
 			NewCoin(x+162.5, y-119)
+		}
+	case "overhang":
+		Type = "leftspikes"
+		newObjects = append(newObjects, Object{resolv.NewObject(x, y, 62, 124, "object", Type), Type})
+
+		Type = "turretbase"
+		newObjects = append(newObjects, Object{resolv.NewObject(x-62, y-62, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x-186, y-62, 124, 62, "object", Type), Type})
+
+		newObjects = append(newObjects, Object{resolv.NewObject(x+62, y-62, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+62, y, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+62, y+62, 124, 62, "object", Type), Type})
+
+		if coinChance == 1 || coinChance == 2 {
+			NewCoin(x-62, y+6)
+			NewCoin(x-62, y+68)
+			NewCoin(x-124, y+6)
+			NewCoin(x-124, y+68)
+			NewCoin(x-186, y+6)
+			NewCoin(x-186, y+68)
+		}
+	case "staircase":
+		Type = "turretbase"
+		newObjects = append(newObjects, Object{resolv.NewObject(x, y, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x, y-62, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+124, y, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+124, y-62, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+124, y-124, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+248, y, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+248, y-62, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+248, y-124, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+248, y-186, 124, 62, "object", Type), Type})
+
+		Type = "spikes"
+		newObjects = append(newObjects, Object{resolv.NewObject(x+372, y, 124, 62, "object", Type), Type})
+
+		if coinChance == 3 {
+			NewCoin(x+408, y-186)
+			NewCoin(x+408, y-124)
+			NewCoin(x+408, y-62)
+		}
+	case "floatingL":
+		Type = "turretbase"
+		newObjects = append(newObjects, Object{resolv.NewObject(x, y-62, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x, y-124, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x, y-186, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+124, y-62, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+372, y-62, 124, 62, "object", Type), Type})
+
+		Type = "leftspikes"
+		newObjects = append(newObjects, Object{resolv.NewObject(x+434, y, 62, 124, "object", Type), Type})
+
+		if coinChance == 2 {
+			NewCoin(x+36, y-248)
+		} else if coinChance == 1 {
+			NewCoin(x+386, y+6)
+			NewCoin(x+386, y+68)
+		}
+	case "spikejump":
+		Type = "turretbase"
+		newObjects = append(newObjects, Object{resolv.NewObject(x, y, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x, y-62, 124, 62, "object", Type), Type})
+
+		Type = "spikes"
+		newObjects = append(newObjects, Object{resolv.NewObject(x+124, y, 124, 62, "object", Type), Type})
+		newObjects = append(newObjects, Object{resolv.NewObject(x+248, y, 124, 62, "object", Type), Type})
+
+		if coinChance == 1 {
+			NewCoin(x+164, y-236)
+			NewCoin(x+288, y-336)
 		}
 	}
 
