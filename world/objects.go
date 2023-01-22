@@ -38,24 +38,26 @@ func (o *Object) Update() {
 }
 
 func (o Object) Draw(screen *ebiten.Image) {
-	op := &ebiten.DrawImageOptions{}
-	op.GeoM.Translate(o.Obj.X, o.Obj.Y)
+	if o.Obj.X > -120 && o.Obj.X < 1200 { // Don't draw if off screen
+		op := &ebiten.DrawImageOptions{}
+		op.GeoM.Translate(o.Obj.X, o.Obj.Y)
 
-	switch o.Type {
-	case "platform":
-		screen.DrawImage(platform, op)
+		switch o.Type {
+		case "platform":
+			screen.DrawImage(platform, op)
 
-	case "column":
-		screen.DrawImage(column, op)
+		case "column":
+			screen.DrawImage(column, op)
 
-	case "spikes":
-		screen.DrawImage(spikes, op)
+		case "spikes":
+			screen.DrawImage(spikes, op)
 
-	case "leftspikes":
-		screen.DrawImage(leftspikes, op)
+		case "leftspikes":
+			screen.DrawImage(leftspikes, op)
 
-	case "turretbase":
-		screen.DrawImage(turretbase, op)
+		case "turretbase":
+			screen.DrawImage(turretbase, op)
+		}
 	}
 }
 
