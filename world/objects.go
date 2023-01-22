@@ -4,6 +4,7 @@ import (
 	"math/rand"
 
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/nath-ellis/AmongSus/space"
 	"github.com/solarlune/resolv"
 )
@@ -13,22 +14,17 @@ type Object struct {
 	Type string
 }
 
-var Objects []Object
+var (
+	Objects          []Object
+	platform, _, _   = ebitenutil.NewImageFromFile("res/terrain/platform.png")
+	column, _, _     = ebitenutil.NewImageFromFile("res/terrain/column-1.png")
+	spikes, _, _     = ebitenutil.NewImageFromFile("res/terrain/spikes.png")
+	leftspikes, _, _ = ebitenutil.NewImageFromFile("res/terrain/left-spikes.png")
+	turretbase, _, _ = ebitenutil.NewImageFromFile("res/terrain/turretbase.png")
+)
 
 func (o *Object) Update() {
-	switch o.Type {
-	case "platform":
-		o.Obj.X -= Speed
-
-	case "column":
-		o.Obj.X -= Speed
-
-	case "spikes":
-		o.Obj.X -= Speed
-
-	case "turretbase":
-		o.Obj.X -= Speed
-	}
+	o.Obj.X -= Speed
 
 	if o.Obj.X <= -o.Obj.W {
 		if o.Type == "platform" {
@@ -54,6 +50,9 @@ func (o Object) Draw(screen *ebiten.Image) {
 
 	case "spikes":
 		screen.DrawImage(spikes, op)
+
+	case "leftspikes":
+		screen.DrawImage(leftspikes, op)
 
 	case "turretbase":
 		screen.DrawImage(turretbase, op)
@@ -97,6 +96,9 @@ func NewObject(x float64, y float64, Type string) {
 		if coinChance == 1 || coinChance == 2 {
 			NewCoin(x+39.5, y-168)
 		}
+
+	case "leftspikes":
+		newObjects = append(newObjects, Object{resolv.NewObject(x, y, 62, 124, "object", Type), Type})
 
 	case "turretbase":
 		newObjects = append(newObjects, Object{resolv.NewObject(x, y, 124, 62, "object", Type), Type})
@@ -232,3 +234,5 @@ func NewObject(x float64, y float64, Type string) {
 		}
 	}
 }
+
+// TODO: Add left facing spikes

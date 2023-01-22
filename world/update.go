@@ -11,7 +11,7 @@ var (
 
 func Update() {
 	if ObjTicker <= 0 {
-		r := rand.Intn(11)
+		r := rand.Intn(12)
 
 		switch r {
 		case 0:
@@ -19,22 +19,24 @@ func Update() {
 		case 1:
 			NewObject(1240, 414, "spikes")
 		case 2:
-			NewObject(1240, 414, "turretbase")
+			NewObject(1240, 352, "leftspikes")
 		case 3:
-			NewObject(1240, 414, "longplatform")
+			NewObject(1240, 414, "turretbase")
 		case 4:
-			NewObject(1240, 352, "columnspikes")
+			NewObject(1240, 414, "longplatform")
 		case 5:
-			NewObject(1240, 414, "hill")
+			NewObject(1240, 352, "columnspikes")
 		case 6:
-			NewObject(1240, 414, "spikehill")
+			NewObject(1240, 414, "hill")
 		case 7:
-			NewObject(1240, 414, "platformspikes")
+			NewObject(1240, 414, "spikehill")
 		case 8:
-			NewObject(1240, 414, "highspikeshill")
+			NewObject(1240, 414, "platformspikes")
 		case 9:
-			NewObject(1240, 414, "tallhill")
+			NewObject(1240, 414, "highspikeshill")
 		case 10:
+			NewObject(1240, 414, "tallhill")
+		case 11:
 			NewObject(1240, 414, "platformcolumnspikes")
 		}
 

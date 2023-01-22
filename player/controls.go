@@ -36,6 +36,10 @@ func (p *PlayerData) Controls() {
 			if p.Obj.X < objs[0].X { // Left
 				p.Obj.X -= world.Speed // Move player with object
 			}
+		} else if objs[0].HasTags("leftspikes") {
+			if p.Obj.X < objs[0].X { // Left
+				p.State = "gameOver"
+			}
 		}
 	}
 
