@@ -27,12 +27,15 @@ func init() {
 }
 
 func (g *Game) Update() error {
-	if player.Player.State == "menu" {
+	switch player.Player.State {
+	case "menu":
 		ui.UpdateMenu()
-	} else if player.Player.State == "game" {
+
+	case "game":
 		player.Player.Controls()
 		world.Update()
-	} else if player.Player.State == "gameOver" {
+
+	case "gameOver":
 		ui.UpdateGameOver()
 	}
 
@@ -40,12 +43,15 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	if player.Player.State == "menu" {
+	switch player.Player.State {
+	case "menu":
 		ui.DrawMenu(screen, fmt.Sprint(player.Player.Coins))
-	} else if player.Player.State == "game" {
+
+	case "game":
 		world.Draw(screen)
 		player.Player.Draw(screen)
-	} else if player.Player.State == "gameOver" {
+
+	case "gameOver":
 		ui.DrawGameOver(screen, fmt.Sprint(player.Player.Coins))
 	}
 }
