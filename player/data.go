@@ -95,3 +95,5 @@ func (p *PlayerData) LoadSprites() {
 		p.WalkingSprites = append(p.WalkingSprites, walking4)
 	}
 }
+
+var Player PlayerData
