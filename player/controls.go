@@ -39,6 +39,7 @@ func (p *PlayerData) Controls() {
 		} else if objs[0].HasTags("leftspikes") {
 			if p.Obj.X < objs[0].X { // Left
 				p.State = "gameOver"
+				SavedData.Save()
 			}
 		}
 	}
@@ -74,6 +75,7 @@ func (p *PlayerData) Controls() {
 			// Collision with spikes
 			if objs[0].HasTags("spikes") {
 				p.State = "gameOver"
+				SavedData.Save()
 			}
 
 			if objs[0].Y > p.Obj.Y {
@@ -88,5 +90,6 @@ func (p *PlayerData) Controls() {
 
 	if p.Obj.X <= -p.Obj.W {
 		p.State = "gameOver"
+		SavedData.Save()
 	}
 }
