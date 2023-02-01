@@ -1,6 +1,9 @@
 package player
 
 import (
+	"encoding/json"
+	"os"
+
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/nath-ellis/AmongSus/space"
@@ -40,6 +43,8 @@ func (p *PlayerData) Init() {
 	space.Space.Add(p.Obj)
 
 	p.LoadSprites()
+
+	SavedData.Init()
 }
 
 func (p *PlayerData) LoadSprites() {
@@ -62,3 +67,57 @@ func (p *PlayerData) LoadSprites() {
 }
 
 var Player PlayerData
+
+type Item struct {
+	Name  string `json:"name"`
+	Owned bool   `json:"owned"`
+	Price int    `price:"price"`
+}
+
+type Saved struct {
+	Coins int    `json:"coins"`
+	Items []Item `json:"items"`
+}
+
+func (s *Saved) Init() {
+	file, err := os.ReadFile("data.json")
+
+	if err != nil {
+		s.Coins = 0
+		s.Items = []Item{
+			{"white", false, 25},
+			{"black", false, 25},
+		}
+
+		s.Save()
+		return
+	}
+
+	err = json.Unmarshal(file, &s)
+
+	if err != nil {
+		s.Coins = 0
+		s.Items = []Item{
+			{"white", false, 25},
+			{"black", false, 25},
+		}
+
+		s.Save()
+	}
+
+	Player.Coins = SavedData.Coins
+}
+
+func (s *Saved) Save() {
+	s.Coins = Player.Coins
+
+	os.Remove("data.json") // Remove old data
+	file, _ := os.OpenFile("data.json", os.O_RDWR|os.O_CREATE, os.ModePerm)
+
+	data, _ := json.Marshal(&s)
+
+	file.Write(data)
+	file.Close()
+}
+
+var SavedData Saved

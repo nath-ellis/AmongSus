@@ -16,8 +16,23 @@ func UpdateMenu() {
 		player.Player.ChangeColour("left")
 	} else if RightColourBtn.IsPressed() {
 		player.Player.ChangeColour("right")
-	} else if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
+	} else if shopBtn.IsPressed() {
+		if shopOpen {
+			shopOpen = false
+			shopBtn.Sprite = shopLight
+			shopBtn.OnHoverSprite = shopDark
+		} else {
+			shopOpen = true
+			shopBtn.Sprite = xLight
+			shopBtn.OnHoverSprite = xDark
+			initItems()
+		}
+	} else if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) && !shopOpen {
 		player.Player.State = "game"
+	}
+
+	if shopOpen {
+		checkItems()
 	}
 }
 
@@ -27,26 +42,34 @@ func DrawMenu(screen *ebiten.Image, coins string) {
 	op.GeoM.Scale(0.8, 0.8)
 	screen.DrawImage(menubg, op)
 
-	op.GeoM.Reset()
-	op.GeoM.Scale(0.5, 0.5)
-	op.GeoM.Translate(340, 200)
+	if shopOpen {
+		for _, s := range shopItems {
+			s.Draw(screen, false)
+		}
+	} else {
+		op.GeoM.Reset()
+		op.GeoM.Scale(0.5, 0.5)
+		op.GeoM.Translate(340, 200)
 
-	screen.DrawImage(title, op)
+		screen.DrawImage(title, op)
 
-	op.GeoM.Reset()
-	op.GeoM.Scale(0.3, 0.3)
-	op.GeoM.Translate(490, 400)
-	screen.DrawImage(click, op)
+		op.GeoM.Reset()
+		op.GeoM.Scale(0.3, 0.3)
+		op.GeoM.Translate(490, 400)
+		screen.DrawImage(click, op)
+
+		op.GeoM.Reset()
+		op.GeoM.Translate(5, 5)
+
+		screen.DrawImage(player.Player.IdleSprite, op)
+
+		LeftColourBtn.Draw(screen, true)
+		RightColourBtn.Draw(screen, true)
+	}
 
 	drawCoinAmount(screen, coins)
 
-	op = &ebiten.DrawImageOptions{}
-	op.GeoM.Translate(5, 5)
-
-	screen.DrawImage(player.Player.IdleSprite, op)
-
-	LeftColourBtn.Draw(screen, true)
-	RightColourBtn.Draw(screen, true)
+	shopBtn.Draw(screen, false)
 }
 
 func UpdateGameOver() {
@@ -54,6 +77,8 @@ func UpdateGameOver() {
 		player.Player.ChangeColour("left")
 	} else if RightColourBtn.IsPressed() {
 		player.Player.ChangeColour("right")
+	} else if homeBtn.IsPressed() {
+		player.Player.State = "menu"
 	} else if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
 		// Reset the game
 		player.Player.Obj.X = 50
@@ -106,19 +131,26 @@ func DrawGameOver(screen *ebiten.Image, coins string) {
 
 	drawCoinAmount(screen, coins)
 
-	op = &ebiten.DrawImageOptions{}
+	op.GeoM.Reset()
 	op.GeoM.Translate(5, 5)
 
 	screen.DrawImage(player.Player.IdleSprite, op)
 
 	LeftColourBtn.Draw(screen, true)
 	RightColourBtn.Draw(screen, true)
+	homeBtn.Draw(screen, false)
 }
 
 func drawCoinAmount(screen *ebiten.Image, coins string) {
 	op := &ebiten.DrawImageOptions{}
 
-	op.GeoM.Translate(5, 540)
+	if shopOpen {
+		op.GeoM.Translate(5, 5)
+		text.Draw(screen, coins, VCROSDMono, 60, 55, color.White)
+	} else {
+		op.GeoM.Translate(5, 540)
+		text.Draw(screen, coins, VCROSDMono, 60, 590, color.White)
+	}
+
 	screen.DrawImage(coin, op)
-	text.Draw(screen, coins, VCROSDMono, 60, 590, color.White)
 }
