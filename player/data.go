@@ -75,14 +75,16 @@ type Item struct {
 }
 
 type Saved struct {
-	Coins int    `json:"coins"`
-	Items []Item `json:"items"`
+	Colour string `json:"colour"`
+	Coins  int    `json:"coins"`
+	Items  []Item `json:"items"`
 }
 
 func (s *Saved) Init() {
 	file, err := os.ReadFile("data.json")
 
 	if err != nil {
+		s.Colour = "lime"
 		s.Coins = 0
 		s.Items = []Item{
 			{"white", false, 50},
@@ -96,6 +98,7 @@ func (s *Saved) Init() {
 	err = json.Unmarshal(file, &s)
 
 	if err != nil {
+		s.Colour = "lime"
 		s.Coins = 0
 		s.Items = []Item{
 			{"white", false, 50},
@@ -103,13 +106,18 @@ func (s *Saved) Init() {
 		}
 
 		s.Save()
+		return
 	}
 
+	Player.Colour = SavedData.Colour
 	Player.Coins = SavedData.Coins
+	Player.LoadSprites()
 }
 
 func (s *Saved) Save() {
+	s.Colour = Player.Colour
 	s.Coins = Player.Coins
+	Player.LoadSprites()
 
 	os.Remove("data.json") // Remove old data
 	file, _ := os.OpenFile("data.json", os.O_RDWR|os.O_CREATE, os.ModePerm)
