@@ -73,14 +73,8 @@ func DrawMenu(screen *ebiten.Image, coins string) {
 }
 
 func UpdateGameOver() {
-	if LeftColourBtn.IsPressed() {
-		player.Player.ChangeColour("left")
-	} else if RightColourBtn.IsPressed() {
-		player.Player.ChangeColour("right")
-	} else if homeBtn.IsPressed() {
-		player.Player.State = "menu"
-	} else if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
-		// Reset the game
+	// Reset the game
+	reset := func() {
 		player.Player.Obj.X = 50
 		player.Player.Obj.Y = -100
 
@@ -107,7 +101,17 @@ func UpdateGameOver() {
 		world.NewObject(1240, 476, "platform")
 
 		world.Coins = []world.Coin{}
+	}
 
+	if LeftColourBtn.IsPressed() {
+		player.Player.ChangeColour("left")
+	} else if RightColourBtn.IsPressed() {
+		player.Player.ChangeColour("right")
+	} else if homeBtn.IsPressed() {
+		reset()
+		player.Player.State = "menu"
+	} else if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
+		reset()
 		player.Player.State = "game"
 	}
 }
