@@ -17,7 +17,7 @@ type ShopItem struct {
 	Price int
 }
 
-func (s ShopItem) Draw(screen *ebiten.Image, scale bool) { // add frame
+func (s ShopItem) Draw(screen *ebiten.Image, scale bool) {
 	op := &ebiten.DrawImageOptions{}
 	if scale {
 		op.GeoM.Scale(2, 2)
