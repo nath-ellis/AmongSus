@@ -63,4 +63,5 @@ func (p *PlayerData) ChangeColour(direction string) {
 	}
 
 	p.LoadSprites()
+	SavedData.Save()
 }
