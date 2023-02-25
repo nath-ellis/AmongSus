@@ -85,8 +85,8 @@ func (s *Saved) Init() {
 	if err != nil {
 		s.Coins = 0
 		s.Items = []Item{
-			{"white", false, 25},
-			{"black", false, 25},
+			{"white", false, 50},
+			{"black", false, 50},
 		}
 
 		s.Save()
@@ -98,8 +98,8 @@ func (s *Saved) Init() {
 	if err != nil {
 		s.Coins = 0
 		s.Items = []Item{
-			{"white", false, 25},
-			{"black", false, 25},
+			{"white", false, 50},
+			{"black", false, 50},
 		}
 
 		s.Save()
