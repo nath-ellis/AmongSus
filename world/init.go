@@ -5,7 +5,10 @@ import (
 	"github.com/solarlune/resolv"
 )
 
-var Speed float64 = 2
+var (
+	Speed    float64 = 2
+	MaxSpeed float64 = 5
+)
 
 func Init() {
 	NewObject(0, 476, "platform")

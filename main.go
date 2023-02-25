@@ -1,12 +1,14 @@
 package main
 
 import (
+	"fmt"
 	_ "image/png"
 	"log"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/nath-ellis/AmongSus/player"
 	"github.com/nath-ellis/AmongSus/space"
+	"github.com/nath-ellis/AmongSus/ui"
 	"github.com/nath-ellis/AmongSus/world"
 )
 
@@ -14,59 +16,39 @@ type Game struct{}
 
 func init() {
 	space.Init(1200, 600)
-	player.Init()
+	player.Player.Init()
 
 	world.Init()
+	ui.Init()
 }
 
 func (g *Game) Update() error {
-	if player.Player.State == "menu" {
-		if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
-			player.Player.State = "game"
-		}
-		player.ColourSelectorCtl()
-	} else if player.Player.State == "game" {
-		player.Controls()
+	switch player.Player.State {
+	case "menu":
+		ui.UpdateMenu()
+
+	case "game":
+		player.Player.Controls()
 		world.Update()
-	} else if player.Player.State == "gameOver" {
-		if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
-			player.Player.Obj.X = 50
-			player.Player.Obj.Y = -100
 
-			for _, o := range world.Objects {
-				if o.Type != "platform" {
-					tmp := []world.Object{}
-
-					for _, O := range world.Objects {
-						if o.Obj.X == O.Obj.X && o.Type == O.Type {
-							continue
-						}
-						tmp = append(tmp, O)
-					}
-
-					space.Space.Remove(o.Obj)
-
-					world.Objects = []world.Object{}
-					world.Objects = tmp
-				}
-			}
-
-			player.Player.State = "game"
-		}
+	case "gameOver":
+		ui.UpdateGameOver()
 	}
 
 	return nil
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	if player.Player.State == "menu" {
-		world.DrawMenu(screen)
-		player.DrawColourSelector(screen)
-	} else if player.Player.State == "game" {
+	switch player.Player.State {
+	case "menu":
+		ui.DrawMenu(screen, fmt.Sprint(player.Player.Coins))
+
+	case "game":
 		world.Draw(screen)
-		player.Draw(screen)
-	} else if player.Player.State == "gameOver" {
-		world.DrawGameOver(screen)
+		player.Player.Draw(screen)
+
+	case "gameOver":
+		ui.DrawGameOver(screen, fmt.Sprint(player.Player.Coins))
 	}
 }
 

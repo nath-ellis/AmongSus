@@ -1,46 +1,67 @@
 package player
 
-import (
-	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
-	"github.com/hajimehoshi/ebiten/v2/inpututil"
-)
+func (p *PlayerData) ChangeColour(direction string) {
+	var blackUnlocked, whiteUnlocked bool
 
-var (
-	limeIdle, _, _   = ebitenutil.NewImageFromFile("res/Lime/idle.png")
-	cyanIdle, _, _   = ebitenutil.NewImageFromFile("res/Cyan/idle.png")
-	yellowIdle, _, _ = ebitenutil.NewImageFromFile("res/Yellow/idle.png")
-)
-
-func ColourSelectorCtl() {
-	if inpututil.IsKeyJustPressed(ebiten.KeyRight) {
-		if Player.Colour == "lime" {
-			Player.Colour = "cyan"
-		} else if Player.Colour == "cyan" {
-			Player.Colour = "yellow"
-		} else if Player.Colour == "yellow" {
-			Player.Colour = "lime"
+	for _, i := range SavedData.Items {
+		if i.Name == "white" {
+			whiteUnlocked = i.Owned
 		}
-	} else if inpututil.IsKeyJustPressed(ebiten.KeyLeft) {
-		if Player.Colour == "lime" {
-			Player.Colour = "yellow"
-		} else if Player.Colour == "cyan" {
-			Player.Colour = "lime"
-		} else if Player.Colour == "yellow" {
-			Player.Colour = "cyan"
+		if i.Name == "black" {
+			blackUnlocked = i.Owned
 		}
 	}
-}
 
-func DrawColourSelector(screen *ebiten.Image) {
-	op := &ebiten.DrawImageOptions{}
-	op.GeoM.Translate(5, 5)
-
-	if Player.Colour == "lime" {
-		screen.DrawImage(limeIdle, op)
-	} else if Player.Colour == "cyan" {
-		screen.DrawImage(cyanIdle, op)
-	} else if Player.Colour == "yellow" {
-		screen.DrawImage(yellowIdle, op)
+	if direction == "right" {
+		switch p.Colour {
+		case "lime":
+			p.Colour = "cyan"
+		case "cyan":
+			p.Colour = "yellow"
+		case "yellow":
+			if whiteUnlocked {
+				p.Colour = "white"
+			} else if blackUnlocked {
+				p.Colour = "black"
+			} else {
+				p.Colour = "lime"
+			}
+		case "white":
+			if blackUnlocked {
+				p.Colour = "black"
+			} else {
+				p.Colour = "lime"
+			}
+		case "black":
+			p.Colour = "lime"
+		}
 	}
+
+	if direction == "left" {
+		switch p.Colour {
+		case "lime":
+			if blackUnlocked {
+				p.Colour = "black"
+			} else if whiteUnlocked {
+				p.Colour = "white"
+			} else {
+				p.Colour = "yellow"
+			}
+		case "black":
+			if whiteUnlocked {
+				p.Colour = "white"
+			} else {
+				p.Colour = "yellow"
+			}
+		case "white":
+			p.Colour = "yellow"
+		case "yellow":
+			p.Colour = "cyan"
+		case "cyan":
+			p.Colour = "lime"
+		}
+	}
+
+	p.LoadSprites()
+	SavedData.Save()
 }
