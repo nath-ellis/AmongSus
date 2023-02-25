@@ -42,7 +42,12 @@ func (s ShopItem) Draw(screen *ebiten.Image, scale bool) { // add frame
 		op.GeoM.Translate(s.Obj.X+10, s.Obj.Y+50)
 
 		screen.DrawImage(coin, op)
-		text.Draw(screen, fmt.Sprint(s.Price), VCROSDMono, int(s.Obj.X+55), int(s.Obj.Y+100), color.White)
+
+		if s.Owned {
+			text.Draw(screen, "--", VCROSDMono, int(s.Obj.X+55), int(s.Obj.Y+100), color.White)
+		} else {
+			text.Draw(screen, fmt.Sprint(s.Price), VCROSDMono, int(s.Obj.X+55), int(s.Obj.Y+100), color.White)
+		}
 	} else {
 		screen.DrawImage(s.Sprite, op)
 	}
