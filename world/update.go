@@ -2,15 +2,16 @@ package world
 
 import (
 	"math/rand"
-
-	"github.com/nath-ellis/AmongSus/space"
 )
 
-var objTicker int = 0
+var (
+	ObjTicker    int = 0
+	MaxObjTicker int = 250
+)
 
 func Update() {
-	if objTicker <= 0 {
-		r := rand.Intn(3) // more types later
+	if ObjTicker <= 0 {
+		r := rand.Intn(16)
 
 		switch r {
 		case 0:
@@ -18,78 +19,60 @@ func Update() {
 		case 1:
 			NewObject(1240, 414, "spikes")
 		case 2:
+			NewObject(1240, 352, "leftspikes")
+		case 3:
 			NewObject(1240, 414, "turretbase")
+		case 4:
+			NewObject(1240, 414, "longplatform")
+		case 5:
+			NewObject(1240, 352, "columnspikes")
+		case 6:
+			NewObject(1240, 414, "hill")
+		case 7:
+			NewObject(1240, 414, "spikehill")
+		case 8:
+			NewObject(1240, 414, "platformspikes")
+		case 9:
+			NewObject(1240, 414, "highspikeshill")
+		case 10:
+			NewObject(1240, 414, "tallhill")
+		case 11:
+			NewObject(1240, 414, "platformcolumnspikes")
+		case 12:
+			NewObject(1426, 352, "overhang")
+		case 13:
+			NewObject(1240, 414, "staircase")
+		case 14:
+			NewObject(1240, 352, "floatingL")
+		case 15:
+			NewObject(1240, 414, "spikejump")
 		}
 
-		objTicker = 300
+		ObjTicker = MaxObjTicker
+
+		if r%2 == 0 {
+			chance := rand.Intn(6)
+			if Speed < MaxSpeed && chance == 1 {
+				Speed += 1
+			}
+
+			if Speed >= 5 {
+				MaxObjTicker = 100
+			} else if Speed >= 4 {
+				MaxObjTicker = 150
+			} else if Speed >= 3 {
+				MaxObjTicker = 200
+			}
+		}
 	} else {
-		objTicker -= 1
+		ObjTicker -= 1
 	}
 
 	for _, o := range Objects {
-		switch o.Type {
-		case "platform":
-			o.Obj.X -= Speed
+		o.Update()
+	}
 
-			if o.Obj.X <= -124 {
-				o.Obj.X = 1240
-			}
-		case "column":
-			o.Obj.X -= Speed
-
-			if o.Obj.X <= -32 { // removes it
-				tmp := []Object{}
-
-				for _, O := range Objects {
-					if o.Obj.X == O.Obj.X && o.Type == O.Type {
-						continue
-					}
-					tmp = append(tmp, O)
-				}
-
-				space.Space.Remove(o.Obj)
-
-				Objects = []Object{}
-				Objects = tmp
-			}
-		case "spikes":
-			o.Obj.X -= Speed
-
-			if o.Obj.X <= -125 { // removes it
-				tmp := []Object{}
-
-				for _, O := range Objects {
-					if o.Obj.X == O.Obj.X && o.Type == O.Type {
-						continue
-					}
-					tmp = append(tmp, O)
-				}
-
-				space.Space.Remove(o.Obj)
-
-				Objects = []Object{}
-				Objects = tmp
-			}
-		case "turretbase":
-			o.Obj.X -= Speed
-
-			if o.Obj.X <= -250 { // removes it
-				tmp := []Object{}
-
-				for _, O := range Objects {
-					if o.Obj.X == O.Obj.X && o.Type == O.Type {
-						continue
-					}
-					tmp = append(tmp, O)
-				}
-
-				space.Space.Remove(o.Obj)
-
-				Objects = []Object{}
-				Objects = tmp
-			}
-		}
-
-		o.Obj.Update()
+	for _, c := range Coins {
+		c.Update()
 	}
 }

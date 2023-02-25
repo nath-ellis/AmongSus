@@ -1,100 +1,95 @@
 package player
 
 import (
+	"math"
+
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/nath-ellis/AmongSus/world"
 )
 
-func Controls() {
-	if c := Player.Obj.Check(1, 1, "object"); c != nil {
-		oX, oY := c.Objects[0].X, c.Objects[0].Y
-
-		for _, o := range world.Objects {
-			if o.Type == "platform" {
-				continue
-			}
-
-			if o.Obj.X == oX && o.Obj.Y == oY {
-				Player.State = "gameOver"
-			}
-		}
-	} else if c := Player.Obj.Check(1, -1, "object"); c != nil {
-		oX, oY := c.Objects[0].X, c.Objects[0].Y
-
-		for _, o := range world.Objects {
-			if o.Type == "platform" {
-				continue
-			}
-
-			if o.Obj.X == oX && o.Obj.Y == oY {
-				Player.State = "gameOver"
-			}
-		}
-	} else if c := Player.Obj.Check(-1, 1, "object"); c != nil {
-		oX, oY := c.Objects[0].X, c.Objects[0].Y
-
-		for _, o := range world.Objects {
-			if o.Type == "platform" {
-				continue
-			}
-
-			if o.Obj.X == oX && o.Obj.Y == oY {
-				Player.State = "gameOver"
-			}
-		}
-	} else if c := Player.Obj.Check(-1, -1, "object"); c != nil {
-		oX, oY := c.Objects[0].X, c.Objects[0].Y
-
-		for _, o := range world.Objects {
-			if o.Type == "platform" {
-				continue
-			}
-
-			if o.Obj.X == oX && o.Obj.Y == oY {
-				Player.State = "gameOver"
+func (p *PlayerData) Controls() {
+	// Check for coins
+	if c := p.Obj.Check(0, 0, "coin"); c != nil {
+		for _, coin := range world.Coins {
+			if c.Objects[0].X == coin.Obj.X && c.Objects[0].Y == coin.Obj.Y {
+				coin.Remove()
+				p.Coins += 1
 			}
 		}
 	}
 
-	xSpeed := Player.XSpeed
+	// X Collision and movement
+	xSpeed := 0.0
 
-	if ebiten.IsKeyPressed(ebiten.KeyA) && Player.Obj.X > 0 {
-		if c := Player.Obj.Check(-xSpeed, 0, "object"); c != nil {
-			xSpeed = c.ContactWithCell(c.Cells[0]).X()
-		}
-		Player.Obj.X -= xSpeed
-	} else if ebiten.IsKeyPressed(ebiten.KeyD) && Player.Obj.X < 1105 {
-		if c := Player.Obj.Check(xSpeed, 0, "object"); c != nil {
-			xSpeed = c.ContactWithCell(c.Cells[0]).X()
-		}
-		Player.Obj.X += xSpeed
+	if ebiten.IsKeyPressed(ebiten.KeyA) && p.Obj.X > 0 {
+		xSpeed = -p.XSpeed
 	}
 
-	Player.YSpeed += Player.YVel
+	if ebiten.IsKeyPressed(ebiten.KeyD) && p.Obj.X < 1105 {
+		xSpeed = p.XSpeed
+	}
 
-	if !Player.Falling {
+	if c := p.Obj.Check(xSpeed, 0, "object"); c != nil {
+		xSpeed = c.ContactWithObject(c.Objects[0]).X()
+
+		if objs := c.ObjectsByTags("object"); objs[0].HasTags("column", "turretbase", "spikes") {
+			if p.Obj.X < objs[0].X { // Left
+				p.Obj.X -= world.Speed // Move player with object
+			}
+		} else if objs[0].HasTags("leftspikes") {
+			if p.Obj.X < objs[0].X { // Left
+				p.State = "gameOver"
+				SavedData.Save()
+			}
+		}
+	}
+
+	p.Obj.X += xSpeed
+
+	// Y Collision and Jumping
+	p.YSpeed += p.YVel
+
+	if !p.Falling {
 		if ebiten.IsKeyPressed(ebiten.KeySpace) { // jumping
-			Player.YSpeed = -Player.JumpSpeed
-			Player.Falling = true
+			p.YSpeed = -p.JumpSpeed
+			p.Falling = true
 		}
 	}
 
-	ySpeed := Player.YSpeed
+	p.Falling = true
 
-	Player.Falling = true
+	ySpeed := p.YSpeed
+	ySpeed = math.Max(math.Min(ySpeed, 16), -16)
 
-	if c := Player.Obj.Check(0, ySpeed, "object"); c != nil {
+	checkDistance := ySpeed
+
+	if checkDistance >= 0 {
+		checkDistance++
+	}
+
+	if c := p.Obj.Check(0, checkDistance, "object"); c != nil {
 		if objs := c.ObjectsByTags("object"); len(objs) > 0 {
 			ySpeed = c.ContactWithObject(objs[0]).Y()
-			Player.YSpeed = 0
+			p.YSpeed = 0
 
-			if objs[0].Y > Player.Obj.Y {
-				Player.Falling = false
+			// Collision with spikes
+			if objs[0].HasTags("spikes") {
+				p.State = "gameOver"
+				SavedData.Save()
+			}
+
+			if objs[0].Y > p.Obj.Y {
+				p.Falling = false
 			}
 		}
 	}
 
-	Player.Obj.Y += ySpeed
+	p.Obj.Y += ySpeed
 
-	Player.Obj.Update()
+	p.Obj.Update()
+
+	if p.Obj.X <= -p.Obj.W {
+		p.State = "gameOver"
+		SavedData.Save()
+	}
 }
